@@ -11,62 +11,80 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_active_directory_domain_service" "example" {
-  name                = var.ad_name
-  domain_name         = var.ad_domain_name
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+resource "azurerm_resource_group" "example" {
+  name     = "example-resources"
+  location = "East US"
 }
 
-resource "azurerm_b2c_directory" "example" {
-  name                = var.b2c_name
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_app_service_plan" "example" {
+  name                = "example-appserviceplan"
   location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  sku {
+    tier = "Standard"
+    size = "S1"
+  }
 }
 
-resource "azurerm_app_service" "frontend" {
-  name                = var.app_service_name
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_app_service" "example" {
+  name                = "example-appservice"
   location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
   app_service_plan_id = azurerm_app_service_plan.example.id
 }
 
-resource "azurerm_cdn_profile" "example" {
-  name                = var.cdn_name
+resource "azurerm_frontdoor" "example" {
+  name                = "example-frontdoor"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
+  routing_rule {
+    name               = "example-routingrule"
+    accepted_protocols = ["Https"]
+    patterns_to_match  = ["/*"]
+    frontend_endpoints = [azurerm_frontdoor_frontend_endpoint.example.name]
+    forwarding_configuration {
+      forwarding_protocol        = "HttpsOnly"
+      backend_pool               = azurerm_frontdoor_backend_pool.example.name
+      cache_use_dynamic_compression = true
+      cache_query_parameter_strip_directive = "StripAllExcept"
+    }
+  }
+}
+
+resource "azurerm_frontdoor_frontend_endpoint" "example" {
+  name                = "example-frontendendpoint"
+  resource_group_name = azurerm_resource_group.example.name
+  frontdoor_name      = azurerm_frontdoor.example.name
+  host_name           = azurerm_frontdoor.example.host_name
+}
+
+resource "azurerm_frontdoor_backend_pool" "example" {
+  name                = "example-backendpool"
+  resource_group_name = azurerm_resource_group.example.name
+  frontdoor_name      = azurerm_frontdoor.example.name
+  backend {
+    host_header       = azurerm_app_service.example.default_site_hostname
+    address           = azurerm_app_service.example.default_site_hostname
+    http_port         = 80
+    https_port        = 443
+  }
 }
 
 resource "azurerm_api_management" "example" {
-  name                = var.api_management_name
-  resource_group_name = azurerm_resource_group.example.name
+  name                = "example-apim"
   location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  publisher_name      = "Example Publisher"
+  publisher_email     = "publisher@example.com"
+  sku_name            = "Developer_1"
 }
 
-resource "azurerm_function_app" "example" {
-  name                = var.function_name
+resource "azurerm_api_management_api" "example" {
+  name                = "example-api"
   resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
-  app_service_plan_id = azurerm_app_service_plan.example.id
-  storage_account_name = azurerm_storage_account.example.name
-}
-
-resource "azurerm_sql_database" "example" {
-  name                = var.sql_db_name
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
-  server_name         = azurerm_sql_server.example.name
-}
-
-resource "azurerm_cosmosdb_account" "example" {
-  name                = var.cosmosdb_name
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
-  offer_type          = "Standard"
-  kind                = "GlobalDocumentDB"
-}
-
-resource "azurerm_resource_group" "example" {
-  name     = var.resource_group_name
-  location = var.location
+  api_management_name = azurerm_api_management.example.name
+  revision            = "1"
+  display_name        = "Example API"
+  path                = "example"
+  protocols           = ["https"]
 }
