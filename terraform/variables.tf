@@ -1,11 +1,11 @@
-variable "ad_name" {}
-variable "ad_domain_name" {}
-variable "b2c_name" {}
-variable "app_service_name" {}
-variable "cdn_name" {}
-variable "api_management_name" {}
-variable "function_name" {}
-variable "sql_db_name" {}
-variable "cosmosdb_name" {}
-variable "resource_group_name" {}
-variable "location" {}
+variable "location" {
+  description = "Location where the resources will be created"
+  type        = string
+  default     = "East US"
+}
+
+variable "resource_group_name" {
+  description = "Name of the resource group"
+  type        = string
+  default     = "example-resources"
+}
