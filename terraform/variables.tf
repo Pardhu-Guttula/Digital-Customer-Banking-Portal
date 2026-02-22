@@ -1,31 +1,53 @@
-variable "sql_admin_username" {
-  description = "The administrator username for SQL Server"
+variable "resource_group_location" {
+  description = "The location of the resource group."
   type        = string
+  default     = "East US"
 }
 
-variable "sql_admin_password" {
-  description = "The administrator password for SQL Server"
+variable "app_service_plan_name" {
+  description = "The name of the App Service Plan."
   type        = string
-  sensitive   = true
+  default     = "appservice-plan"
 }
 
-variable "tenant_id" {
-  description = "The Tenant ID for Azure Active Directory"
+variable "web_app_name" {
+  description = "The name of the Web App."
   type        = string
+  default     = "self-service-web-app"
 }
 
-variable "domain_name" {
-  description = "The domain name for Active Directory Domain Service"
+variable "storage_account_name" {
+  description = "The name of the Storage Account."
   type        = string
+  default     = "storageselfservice"
 }
 
-variable "organization_name" {
-  description = "The organization name for Azure DevOps"
+variable "key_vault_name" {
+  description = "The name of the Key Vault."
   type        = string
+  default     = "selfservice-keyvault"
 }
 
-variable "azdo_pat" {
-  description = "The Personal Access Token for Azure DevOps"
+variable "log_analytics_workspace_name" {
+  description = "The name of the Log Analytics Workspace."
   type        = string
-  sensitive   = true
+  default     = "log-self-service"
+}
+
+variable "b2c_directory_name" {
+  description = "The name of the Azure AD B2C Directory."
+  type        = string
+  default     = "selfservice-b2c"
+}
+
+variable "function_app_name" {
+  description = "The name of the Function App."
+  type        = string
+  default     = "selfservice-functionapp"
+}
+
+variable "logic_app_name" {
+  description = "The name of the Logic App."
+  type        = string
+  default     = "self-service-workflow"
 }
