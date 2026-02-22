@@ -1,0 +1,6 @@
+sql_admin_username = "exampleadmin"
+sql_admin_password = "examplepassword123!"
+tenant_id          = "00000000-0000-0000-0000-000000000000"
+domain_name        = "example.com"
+organization_name  = "exampleorg"
+azdo_pat           = "example_pat"
