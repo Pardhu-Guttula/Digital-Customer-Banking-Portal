@@ -1,4 +1,4 @@
-# Epic Title: Responsive Design for Tablet using React
+# Epic Title: Responsive Design for Mobile using React
 
 from flask import Blueprint, request, jsonify
 from sqlalchemy.exc import SQLAlchemyError
