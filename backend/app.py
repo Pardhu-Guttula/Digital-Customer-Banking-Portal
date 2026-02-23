@@ -1,4 +1,4 @@
-# Epic Title: Dynamic and Interactive Dashboard UI using React
+# Epic Title: Personalized Dashboard Layout
 
 from flask import Flask, send_from_directory
 from backend.dashboard.controllers.dashboard_controller import dashboard_bp
@@ -8,19 +8,23 @@ from cryptography.fernet import Fernet
 
 app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
 
+# Generate encryption key if not already existing
 encryption_key_file = 'encryption_key'
 if not os.path.exists(encryption_key_file):
     key = Fernet.generate_key().decode()
     with open(encryption_key_file, 'w') as file:
         file.write(key)
 
+# Load encryption key to environment variable
 with open(encryption_key_file, 'r') as file:
     os.environ['ENCRYPTION_KEY'] = file.read()
 
+# Register blueprints
 app.register_blueprint(dashboard_bp, url_prefix='/api')
 
 @app.before_first_request
 def startup():
+    # Create all tables in the database
     Base.metadata.create_all(bind=engine)
 
 @app.teardown_appcontext
