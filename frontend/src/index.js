@@ -1,4 +1,4 @@
-# Epic Title: Responsive Design for Mobile using React
+# Epic Title: Dashboard Backend Data Integration
 
 import React from 'react';
 import ReactDOM from 'react-dom';
