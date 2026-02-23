@@ -1,21 +1,22 @@
-# Epic Title: Implement Product Recommendations Based on User Preferences
+# Epic Title: Integrate PostgreSQL Database for Data Management in the Admin Dashboard
 
-from flask import Flask
-from backend.product_recommendations.controllers.recommendation_controller import recommendation_bp
+from fastapi import FastAPI
+from backend.admin_dashboard.controllers.dashboard_controller import router as dashboard_router
 
-app = Flask(__name__)
+app = FastAPI()
 
-app.register_blueprint(recommendation_bp, url_prefix='/api/recommendations')
+app.include_router(dashboard_router, prefix="/admin", tags=["Admin Dashboard"])
 
-@app.before_first_request
+@app.on_event("startup")
 def startup():
     # Code to run on startup, e.g., establish db connection, initialize resources
     pass
 
-@app.teardown_appcontext
-def shutdown(exception):
+@app.on_event("shutdown")
+def shutdown():
     # Code to run on shutdown, e.g., close db connection, clean up resources
     pass
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
