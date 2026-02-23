@@ -1,7 +1,9 @@
-# Epic Title: Dashboard Backend Data Integration
+# Epic Title: Dynamic and Interactive Dashboard UI using React
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import ProductWidget from './ProductWidget';
+import ServiceWidget from './ServiceWidget';
 
 const Dashboard = ({ userId }) => {
     const [data, setData] = useState({});
@@ -19,6 +21,11 @@ const Dashboard = ({ userId }) => {
         fetchData();
     }, [userId]);
 
+    const handleWidgetClick = (widgetId) => {
+        // Handle widget click logic, e.g., open details, refresh data, etc.
+        console.log(`Widget clicked: ${widgetId}`);
+    }
+
     if (error) {
         return <p>{error}</p>;
     }
@@ -33,19 +40,13 @@ const Dashboard = ({ userId }) => {
             <div>
                 <h2>Banking Products</h2>
                 {data.banking_products.map(product => (
-                    <div key={product.id}>
-                        <h3>{product.name}</h3>
-                        <p>{product.description}</p>
-                    </div>
+                    <ProductWidget key={product.id} product={product} onClick={handleWidgetClick} />
                 ))}
             </div>
             <div>
                 <h2>Services</h2>
                 {data.services.map(service => (
-                    <div key={service.id}>
-                        <h3>{service.name}</h3>
-                        <p>{service.description}</p>
-                    </div>
+                    <ServiceWidget key={service.id} service={service} onClick={handleWidgetClick} />
                 ))}
             </div>
         </div>
