@@ -1,22 +1,23 @@
-# Epic Title: Integrate with PostgreSQL for Data Storage
+# Epic Title: Enable Users to Leave Reviews and Ratings for Products
 
-from fastapi import FastAPI
-from backend.order_management.controllers.order_controller import router as order_router
+from flask import Flask
+from backend.reviews_ratings.controllers.review_controller import review_bp
+from backend.database.config import Base, engine
 
-app = FastAPI()
+app = Flask(__name__)
 
-app.include_router(order_router, prefix="/orders", tags=["orders"])
+# Register blueprints
+app.register_blueprint(review_bp, url_prefix='/api/reviews')
 
-@app.on_event("startup")
+@app.before_first_request
 def startup():
-    # Code to run on startup, e.g., establish db connection, initialize resources
-    pass
+    # Create all tables in the database
+    Base.metadata.create_all(bind=engine)
 
-@app.on_event("shutdown")
-def shutdown():
+@app.teardown_appcontext
+def shutdown(exception):
     # Code to run on shutdown, e.g., close db connection, clean up resources
     pass
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=5000)
