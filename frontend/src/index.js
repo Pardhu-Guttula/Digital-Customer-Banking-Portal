@@ -1,4 +1,4 @@
-# Epic Title: Develop streamlined workflows for submitting account opening requests
+# Epic Title: Dynamic and Interactive Dashboard UI using React
 
 import React from 'react';
 import ReactDOM from 'react-dom';
