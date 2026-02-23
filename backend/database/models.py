@@ -1,8 +1,17 @@
-# Epic Title: Integrate PostgreSQL Database for Data Management in the Admin Dashboard
+# Epic Title: Store User Activity Data in PostgreSQL
 
 from sqlalchemy import Column, Integer, String, Float, TIMESTAMP, ForeignKey
 from sqlalchemy.orm import relationship
 from backend.database.config import Base
+
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, nullable=False, unique=True)
+    email = Column(String, nullable=False, unique=True)
+    password = Column(String, nullable=False)
+
 
 class Product(Base):
     __tablename__ = 'products'
@@ -15,30 +24,26 @@ class Product(Base):
     created_at = Column(TIMESTAMP, nullable=False)
     updated_at = Column(TIMESTAMP)
 
-class OrderStatus(Base):
-    __tablename__ = "statuses"
+
+class BrowsingHistory(Base):
+    __tablename__ = 'browsing_history'
 
     id = Column(Integer, primary_key=True, index=True)
-    status = Column(String, nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
+    viewed_at = Column(TIMESTAMP, nullable=False)
 
-class OrderItem(Base):
-    __tablename__ = "order_items"
+    user = relationship("User")
+    product = relationship("Product")
 
-    id = Column(Integer, primary_key=True, index=True)
-    product_id = Column(Integer, nullable=False)
-    quantity = Column(Integer, nullable=False)
-    price = Column(Float, nullable=False)
-    order_id = Column(Integer, ForeignKey("orders.id"))
 
-class Order(Base):
-    __tablename__ = "orders"
+class PurchaseHistory(Base):
+    __tablename__ = 'purchase_history'
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, nullable=False)
-    address_id = Column(Integer, nullable=False)
-    total_amount = Column(Float, nullable=False)
-    status_id = Column(Integer, ForeignKey("statuses.id"), nullable=False)
-    date = Column(TIMESTAMP, nullable=False)
-    
-    items = relationship("OrderItem", back_populates="order")
-    status = relationship("OrderStatus")
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
+    purchased_at = Column(TIMESTAMP, nullable=False)
+
+    user = relationship("User")
+    product = relationship("Product")
