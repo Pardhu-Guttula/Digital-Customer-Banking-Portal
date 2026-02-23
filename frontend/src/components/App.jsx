@@ -1,10 +1,10 @@
-# Epic Title: Dynamic and Interactive Dashboard UI using React
+# Epic Title: Personalized Dashboard Layout
 
 import React from 'react';
 import Dashboard from './Dashboard';
 
 const App = () => {
-    const userId = 'user123';
+    const userId = 'user123'; // Simulate logged in user
 
     return (
         <div>
