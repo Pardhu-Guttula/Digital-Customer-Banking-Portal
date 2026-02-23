@@ -1,4 +1,4 @@
-// Epic Title: Implement Frontend with Next.js
+// Epic Title: Develop Admin Dashboard Interface Using Next.js
 
 import React from 'react';
 import Head from 'next/head';
@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Next.js App</title>
+        <title>Admin Dashboard</title>
       </Head>
       <Component {...pageProps} />
     </>
