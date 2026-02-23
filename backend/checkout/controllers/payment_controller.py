@@ -1,4 +1,4 @@
-# Epic Title: Payment Processing During Checkout
+# Epic Title: Store Order and Payment Information in PostgreSQL
 
 from flask import Blueprint, request, jsonify
 from pydantic import ValidationError
