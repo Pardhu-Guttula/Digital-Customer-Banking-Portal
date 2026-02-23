@@ -1,4 +1,4 @@
-# Epic Title: Track User Orders
+# Epic Title: Integrate with PostgreSQL for Data Storage
 
 CREATE TABLE statuses (
     id SERIAL PRIMARY KEY,
