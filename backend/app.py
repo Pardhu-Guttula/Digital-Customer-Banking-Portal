@@ -1,12 +1,12 @@
-# Epic Title: Secure Login Interface with React and MFA
+# Epic Title: Secure Login System with MFA
 
-from flask import Flask, send_from_directory
+from flask import Flask
 from backend.authentication.controllers.auth_controller import auth_bp
 from backend.database.config import Base, engine
 import os
 from cryptography.fernet import Fernet
 
-app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
+app = Flask(__name__)
 
 # Generate encryption key if not already existing
 encryption_key_file = 'encryption_key'
@@ -30,10 +30,6 @@ def startup():
 @app.teardown_appcontext
 def shutdown(exception):
     pass
-
-@app.route('/')
-def serve():
-    return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
