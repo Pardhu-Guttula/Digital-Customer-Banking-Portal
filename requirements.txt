@@ -1,3 +1,4 @@
 Flask==2.1.1
 cryptography==3.4.7
 mysqlclient==2.0.3
+smtplib
