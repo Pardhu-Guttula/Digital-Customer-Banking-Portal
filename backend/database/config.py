@@ -1,4 +1,4 @@
-# Epic Title: Capture and maintain a history of user interactions
+# Epic Title: Email notifications for status updates
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
