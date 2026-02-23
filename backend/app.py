@@ -1,7 +1,7 @@
-# Epic Title: Save incomplete application state
+# Epic Title: Capture and maintain a history of user interactions
 
 from flask import Flask, send_from_directory
-from backend.application.controllers.application_state_controller import application_state_bp
+from backend.history.controllers.user_interaction_controller import user_interaction_bp
 from backend.database.config import Base, engine
 import os
 from cryptography.fernet import Fernet
@@ -17,7 +17,7 @@ if not os.path.exists(encryption_key_file):
 with open(encryption_key_file, 'r') as file:
     os.environ['ENCRYPTION_KEY'] = file.read()
 
-app.register_blueprint(application_state_bp, url_prefix='/api')
+app.register_blueprint(user_interaction_bp, url_prefix='/api')
 
 @app.before_first_request
 def startup():
