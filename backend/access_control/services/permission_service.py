@@ -1,4 +1,4 @@
-# Epic Title: Managing user roles and permissions
+# Epic Title: Implement role-based access control for user authorization
 
 from backend.access_control.repositories.permission_repository import PermissionRepository
 
