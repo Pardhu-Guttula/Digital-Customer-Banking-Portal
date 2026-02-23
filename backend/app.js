@@ -1,24 +1,24 @@
-// Epic Title: Backend Data Aggregation Using Node.js
+// Epic Title: Implement Product Recommendations Based on User Preferences
 
 const express = require('express');
-const mongoose = require('mongoose');
-const dataController = require('./data_aggregation/controllers/data_controller');
+const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const recommendationRouter = require('./product_recommendations/controllers/recommendationController');
 
 const app = express();
-const DATABASE_URL = 'mongodb://localhost:27017/mydatabase';
 
-mongoose.connect(DATABASE_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// Middleware
+app.use(cors());
+app.use(helmet());
+app.use(morgan('dev'));
+app.use(express.json());
 
-app.use('/api/data', dataController);
+// Routes
+app.use('/api/recommendations', recommendationRouter);
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+const PORT = process.env.PORT || 3000;
 
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
