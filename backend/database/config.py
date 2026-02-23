@@ -1,21 +1,22 @@
-# Epic Title: Integrate PostgreSQL Database for Data Management in the Admin Dashboard
+# Epic Title: Dashboard Backend Data Integration
 
-import logging
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.ext.declarative import declarative_base
+import os
 
-DATABASE_URL = "postgresql://user:password@localhost/mydatabase"
+DATABASE_URL = "mysql://user:password@localhost/dbname"
 
-engine = create_engine(DATABASE_URL, echo=True)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+engine = create_engine(DATABASE_URL)
+
+db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
+
+Base = declarative_base()
+Base.query = db_session.query_property()
 
 def get_db():
-    db = SessionLocal()
     try:
+        db = db_session()
         yield db
     finally:
         db.close()
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-logger.info(f"Connected to PostgreSQL database at {DATABASE_URL}")
