@@ -1,14 +1,12 @@
-# Epic Title: Dashboard Backend Data Integration
+# Epic Title: Implement role-based access control for user authorization
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
-import os
 
 DATABASE_URL = "mysql://user:password@localhost/dbname"
 
 engine = create_engine(DATABASE_URL)
-
 db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 
 Base = declarative_base()
