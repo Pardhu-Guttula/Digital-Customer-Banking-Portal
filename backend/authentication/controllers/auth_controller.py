@@ -1,4 +1,4 @@
-# Epic Title: Secure Login Interface with React and MFA
+# Epic Title: User Authentication and Authorization
 
 from flask import Blueprint, request, jsonify
 from sqlalchemy.exc import SQLAlchemyError
