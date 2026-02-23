@@ -1,4 +1,4 @@
-# Epic Title: Managing user roles and permissions
+# Epic Title: Implement role-based access control for user authorization
 
 from flask import Blueprint, request, jsonify
 from backend.access_control.services.permission_service import PermissionService
