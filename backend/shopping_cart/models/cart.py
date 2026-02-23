@@ -1,7 +1,7 @@
-# Epic Title: Update Product Quantity in Shopping Cart
+# Epic Title: Remove Product from Shopping Cart
 
 from typing import Optional, List
-from pydantic import BaseModel, condecimal
+from pydantic import BaseModel
 
 class CartItem(BaseModel):
     product_id: int
