@@ -1,4 +1,4 @@
-# Epic Title: Implement Backend Endpoints Using Node.js for Admin Dashboard
+# Epic Title: Implement Product Recommendations Based on User Preferences
 
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
