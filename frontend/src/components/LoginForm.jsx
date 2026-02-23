@@ -1,4 +1,4 @@
-# Epic Title: Secure Login Interface with React and MFA
+# Epic Title: Responsive Design for Tablet using React
 
 import React, { useState } from 'react';
 import axios from 'axios';
