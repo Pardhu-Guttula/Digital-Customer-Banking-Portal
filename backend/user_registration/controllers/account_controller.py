@@ -1,4 +1,4 @@
-# Epic Title: User Registration Backend Logic
+# Epic Title: Store User Data Securely
 
 from flask import Blueprint, request, jsonify
 from sqlalchemy.exc import SQLAlchemyError
