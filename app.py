@@ -1,4 +1,4 @@
-# Epic Title: Store Order and Payment Information in PostgreSQL
+# Epic Title: Payment Processing During Checkout
 
 import logging
 from flask import Flask
