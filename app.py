@@ -1,4 +1,4 @@
-# Epic Title: Update Product Quantity in Shopping Cart
+# Epic Title: Remove Product from Shopping Cart
 
 import logging
 from flask import Flask
