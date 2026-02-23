@@ -1,4 +1,4 @@
-# Epic Title: Personalized Dashboard Layout
+# Epic Title: Dashboard Backend Data Integration
 
 from flask import Blueprint, request, jsonify
 from sqlalchemy.exc import SQLAlchemyError
@@ -15,9 +15,9 @@ def get_dashboard():
     dashboard_service = DashboardService(db)
 
     try:
-        dashboard_layout = dashboard_service.get_user_dashboard(user_id)
-        if dashboard_layout is None:
+        dashboard_data = dashboard_service.fetch_dashboard_data(user_id)
+        if dashboard_data is None:
             return jsonify({"error": "User profile data missing"}), 404
-        return jsonify(dashboard_layout), 200
+        return jsonify(dashboard_data), 200
     except SQLAlchemyError as e:
         return jsonify({"error": "Unable to process your request"}), 500
