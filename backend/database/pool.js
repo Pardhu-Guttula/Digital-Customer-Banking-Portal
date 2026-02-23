@@ -1,4 +1,4 @@
-// Epic Title: Implement Backend Endpoints Using Node.js for Admin Dashboard
+// Epic Title: Implement Product Recommendations Based on User Preferences
 
 const { Pool } = require('pg');
 
