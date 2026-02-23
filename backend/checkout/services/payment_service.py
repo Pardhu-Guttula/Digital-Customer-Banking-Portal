@@ -1,4 +1,4 @@
-# Epic Title: Payment Processing During Checkout
+# Epic Title: Store Order and Payment Information in PostgreSQL
 
 import logging
 from typing import Tuple
