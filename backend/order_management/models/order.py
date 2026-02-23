@@ -1,4 +1,4 @@
-# Epic Title: Allow Users to View Order History
+# Epic Title: Track User Orders
 
 from typing import Optional, List
 from pydantic import BaseModel
@@ -19,7 +19,6 @@ class Order(BaseModel):
     items: List[OrderItem]
     total_amount: float
     status: OrderStatus
-    date: str
 
     class Config:
         orm_mode = True
