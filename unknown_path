@@ -1,1 +1,14 @@
-Epic Title: Dashboard Backend Data Integration
+FAILURE NOTICE:
+
+Epic Title Constraint Violation:
+- User stories specified use of Spring Boot and PostgreSQL, while the provided techstack indicates Flask and MySQL.
+
+Path Constraint Violation:
+- Given folder structure and no user guidance on introducing Spring Boot/PostgreSQL-related paths, safe file generation cannot proceed.
+
+Compliance Failure:
+- Epic Title enforcement
+- Techstack alignment
+- Path safety and occupancy
+
+IMMEDIATE TERMINATION WITH NO OUTPUT.
