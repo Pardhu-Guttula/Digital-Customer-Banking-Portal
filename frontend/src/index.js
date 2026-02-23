@@ -1,4 +1,4 @@
-# Epic Title: Personalized Dashboard Layout
+# Epic Title: Responsive Design for Desktop using React
 
 import React from 'react';
 import ReactDOM from 'react-dom';
