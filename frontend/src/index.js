@@ -1,4 +1,4 @@
-# Epic Title: Develop streamlined workflows for submitting service modification requests
+# Epic Title: Develop streamlined workflows for submitting account opening requests
 
 import React from 'react';
 import ReactDOM from 'react-dom';
