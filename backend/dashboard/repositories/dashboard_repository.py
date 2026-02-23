@@ -1,4 +1,4 @@
-# Epic Title: Personalized Dashboard Layout
+# Epic Title: Dashboard Backend Data Integration
 
 from sqlalchemy.orm import Session
 
@@ -7,14 +7,12 @@ class DashboardRepository:
         self.db_session = db_session
 
     def get_user_profile(self, user_id: str):
-        # Fetch user profile data from database
         return self.db_session.execute(
             "SELECT * FROM user_profiles WHERE user_id = :user_id",
             {"user_id": user_id}
         ).fetchone()
 
     def get_banking_products(self, user_profile):
-        # Fetch banking products based on user's profile
         eligibility_criteria = user_profile['eligibility_criteria']
         return self.db_session.execute(
             "SELECT * FROM banking_products WHERE eligibility_criteria = :eligibility_criteria",
@@ -22,7 +20,6 @@ class DashboardRepository:
         ).fetchall()
 
     def get_services(self, user_profile):
-        # Fetch services based on user's profile
         user_preferences = user_profile['preferences']
         return self.db_session.execute(
             "SELECT * FROM services WHERE preference IN :preferences",
