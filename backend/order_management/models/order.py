@@ -1,9 +1,8 @@
-# Epic Title: Store Order and Payment Information in PostgreSQL
+# Epic Title: Payment Processing During Checkout
 
 from typing import Optional
 from pydantic import BaseModel
 from backend.checkout.models.payment import Payment
-from backend.checkout.models.address import Address
 
 class Order(BaseModel):
     id: Optional[int]
