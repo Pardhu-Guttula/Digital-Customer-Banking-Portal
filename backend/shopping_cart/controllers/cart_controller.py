@@ -1,4 +1,4 @@
-# Epic Title: Update Product Quantity in Shopping Cart
+# Epic Title: Remove Product from Shopping Cart
 
 from flask import Blueprint, request, jsonify
 from pydantic import ValidationError
@@ -7,15 +7,15 @@ from backend.shopping_cart.services.cart_service import CartService
 
 cart_bp = Blueprint('cart', __name__)
 
-@cart_bp.route('/update-cart-item', methods=['PUT'])
-def update_cart_item():
+@cart_bp.route('/remove-from-cart', methods=['DELETE'])
+def remove_from_cart():
     try:
         cart_data = request.json
         cart_item = CartItem(**cart_data)
-        result = CartService.update_cart_item(cart_item)
+        result = CartService.remove_item_from_cart(cart_item)
         if result:
-            return jsonify({"message": "Cart item updated successfully"}), 200
+            return jsonify({"message": "Product removed from cart"}), 200
         else:
-            return jsonify({"error": "Quantity exceeds available stock"}), 400
+            return jsonify({"error": "Product not found in cart"}), 400
     except ValidationError as e:
         return jsonify({"errors": e.errors()}), 400
