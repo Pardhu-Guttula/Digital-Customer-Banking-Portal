@@ -1,4 +1,4 @@
-# Epic Title: Responsive Design for Tablet using React
+# Epic Title: Responsive Design for Mobile using React
 
 import React from 'react';
 import LoginForm from './LoginForm';
