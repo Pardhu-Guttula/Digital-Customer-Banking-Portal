@@ -1,4 +1,4 @@
-# Epic Title: Personalized Dashboard Layout
+# Epic Title: Dashboard Backend Data Integration
 
 from backend.dashboard.repositories.dashboard_repository import DashboardRepository
 
@@ -6,7 +6,7 @@ class DashboardService:
     def __init__(self, db):
         self.dashboard_repository = DashboardRepository(db)
 
-    def get_user_dashboard(self, user_id: str):
+    def fetch_dashboard_data(self, user_id: str):
         user_profile = self.dashboard_repository.get_user_profile(user_id)
         
         if not user_profile:
