@@ -1,4 +1,4 @@
-# Epic Title: Store User Data Securely
+# Epic Title: Secure Login System with MFA
 
 CREATE TABLE accounts (
     id SERIAL PRIMARY KEY,
