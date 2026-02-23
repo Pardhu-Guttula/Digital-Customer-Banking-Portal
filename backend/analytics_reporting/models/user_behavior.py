@@ -1,4 +1,4 @@
-# Epic Title: Track and Analyze User Behavior
+# Epic Title: Data Storage and Retrieval Using PostgreSQL
 
 from sqlalchemy import Column, Integer, String, TIMESTAMP
 from backend.database.config import Base
