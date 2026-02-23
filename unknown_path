@@ -1,10 +1,10 @@
 FAILURE NOTICE:
 
 Epic Title Constraint Violation:
-- The user stories specified use of Spring Boot, while the provided techstack indicates Flask.
+- User stories specified use of PostgreSQL, while techstack indicates MySQL.
 
 Path Constraint Violation:
-- Given folder structure and no user guidance on introducing Spring Boot-related paths, safe file generation cannot proceed.
+- Given folder structure and no user guidance on introducing PostgreSQL-related paths, safe file generation cannot proceed.
 
 Compliance Failure:
 - Epic Title enforcement
