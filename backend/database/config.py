@@ -1,4 +1,4 @@
-# Epic Title: Save incomplete application state
+# Epic Title: Capture and maintain a history of user interactions
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
