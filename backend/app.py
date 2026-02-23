@@ -1,13 +1,13 @@
-# Epic Title: Enable Users to Leave Reviews and Ratings for Products
+# Epic Title: Store User Activity Data in PostgreSQL
 
 from flask import Flask
-from backend.reviews_ratings.controllers.review_controller import review_bp
+from backend.product_recommendations.controllers.history_controller import history_bp
 from backend.database.config import Base, engine
 
 app = Flask(__name__)
 
 # Register blueprints
-app.register_blueprint(review_bp, url_prefix='/api/reviews')
+app.register_blueprint(history_bp, url_prefix='/api/history')
 
 @app.before_first_request
 def startup():
