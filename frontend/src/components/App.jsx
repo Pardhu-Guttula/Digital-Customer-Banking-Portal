@@ -1,15 +1,13 @@
-# Epic Title: Personalized Dashboard Layout
+# Epic Title: Responsive Design for Desktop using React
 
 import React from 'react';
-import Dashboard from './Dashboard';
+import LoginForm from './LoginForm';
 
 const App = () => {
-    const userId = 'user123'; // Simulate logged in user
-
     return (
         <div>
-            <h1>Banking Dashboard</h1>
-            <Dashboard userId={userId} />
+            <h1>Login</h1>
+            <LoginForm />
         </div>
     );
 };
