@@ -1,4 +1,4 @@
-# Epic Title: Implement user interface using React
+# Epic Title: Develop streamlined workflows for submitting service modification requests
 
 import React from 'react';
 import ReactDOM from 'react-dom';
