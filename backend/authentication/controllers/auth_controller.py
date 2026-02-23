@@ -1,4 +1,4 @@
-# Epic Title: Secure Login System with MFA
+# Epic Title: Responsive Design for Tablet using React
 
 from flask import Blueprint, request, jsonify
 from sqlalchemy.exc import SQLAlchemyError
