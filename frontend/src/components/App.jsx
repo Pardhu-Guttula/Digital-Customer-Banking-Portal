@@ -1,13 +1,15 @@
-# Epic Title: Develop streamlined workflows for submitting account opening requests
+# Epic Title: Dynamic and Interactive Dashboard UI using React
 
 import React from 'react';
-import AccountOpeningForm from './AccountOpeningForm';
+import Dashboard from './Dashboard';
 
 const App = () => {
+    const userId = 'user123';
+
     return (
         <div>
-            <h1>Account Opening</h1>
-            <AccountOpeningForm />
+            <h1>Banking Dashboard</h1>
+            <Dashboard userId={userId} />
         </div>
     );
 };
