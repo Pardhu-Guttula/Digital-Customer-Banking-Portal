@@ -1,4 +1,4 @@
-# Epic Title: Responsive Design for Desktop using React
+# Epic Title: Secure Login Interface with React and MFA
 
 from flask import Blueprint, request, jsonify
 from sqlalchemy.exc import SQLAlchemyError
