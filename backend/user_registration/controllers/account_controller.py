@@ -1,4 +1,4 @@
-# Epic Title: User Registration Form
+# Epic Title: User Registration Backend Logic
 
 from flask import Blueprint, request, jsonify
 from sqlalchemy.exc import SQLAlchemyError
