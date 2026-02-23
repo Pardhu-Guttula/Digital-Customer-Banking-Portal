@@ -1,22 +1,22 @@
-# Epic Title: Integrate PostgreSQL Database for Data Management in the Admin Dashboard
+# Epic Title: User Registration Backend Logic
 
-from fastapi import FastAPI
-from backend.admin_dashboard.controllers.dashboard_controller import router as dashboard_router
+from flask import Flask
+from backend.user_registration.controllers.account_controller import account_bp
+from backend.database.config import Base, engine
 
-app = FastAPI()
+app = Flask(__name__)
 
-app.include_router(dashboard_router, prefix="/admin", tags=["Admin Dashboard"])
+# Register blueprints
+app.register_blueprint(account_bp, url_prefix='/api')
 
-@app.on_event("startup")
+@app.before_first_request
 def startup():
-    # Code to run on startup, e.g., establish db connection, initialize resources
-    pass
+    # Create all tables in the database
+    Base.metadata.create_all(bind=engine)
 
-@app.on_event("shutdown")
-def shutdown():
-    # Code to run on shutdown, e.g., close db connection, clean up resources
+@app.teardown_appcontext
+def shutdown(exception):
     pass
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=5000)
