@@ -1,4 +1,4 @@
-# Epic Title: Responsive Design for Tablet using React
+# Epic Title: Responsive Design for Mobile using React
 
 /* Base Styling */
 body {
@@ -20,7 +20,7 @@ form {
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    width: calc(100% - 40px); /* Responsive width */
+    width: calc(100% - 40px); 
     max-width: 400px;
 }
 
