@@ -1,8 +1,7 @@
-# Epic Title: Payment Processing During Checkout
+# Epic Title: Address Entry in Checkout Process
 
 import logging
 from flask import Flask
-from backend.checkout.controllers.payment_controller import payment_bp
 from backend.checkout.controllers.address_controller import address_bp
 from backend.shopping_cart.controllers.cart_controller import cart_bp
 from backend.authentication.controllers.login_controller import login_bp
@@ -11,7 +10,6 @@ from backend.authentication.controllers.password_recovery_controller import pass
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    app.register_blueprint(payment_bp)
     app.register_blueprint(address_bp)
     app.register_blueprint(cart_bp)
     app.register_blueprint(login_bp)
