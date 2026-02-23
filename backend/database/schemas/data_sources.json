@@ -1,0 +1,14 @@
+// Epic Title: Backend Data Aggregation Using Node.js
+
+[
+  {
+    "name": "Sales API",
+    "url": "http://localhost:5000/api/reports/sales",
+    "type": "sales"
+  },
+  {
+    "name": "User Behavior API",
+    "url": "http://localhost:5000/api/insights/behavior",
+    "type": "behavior"
+  }
+]
