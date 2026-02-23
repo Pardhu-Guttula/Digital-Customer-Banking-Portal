@@ -1,18 +1,19 @@
-# Epic Title: Develop Product Listing Page
+# Epic Title: Product Listing Page
 
 from flask import Blueprint, request, jsonify
-from pydantic import ValidationError
-from backend.product_listings.models.product import Product
+import logging
 from backend.product_listings.services.product_service import ProductService
 
 product_bp = Blueprint('product', __name__)
+logger = logging.getLogger(__name__)
 
-@product_bp.route('/add-product', methods=['POST'])
-def add_product():
+@product_bp.route('/products', methods=['GET'])
+def get_products():
     try:
-        product_data = request.json
-        product = Product(**product_data)
-        ProductService.add_product(product)
-        return jsonify({"message": "Product successfully added"}), 201
-    except ValidationError as e:
-        return jsonify({"errors": e.errors()}), 400
+        page = int(request.args.get('page', 1))
+        per_page = int(request.args.get('per_page', 10))
+        products = ProductService.get_all_products(page, per_page)
+        return jsonify(products), 200
+    except Exception as e:
+        logger.error(f"Error retrieving products: {e}")
+        return jsonify({"error": "Could not retrieve products"}), 500
