@@ -1,4 +1,4 @@
-# Epic Title: Product Listing Page
+# Epic Title: Edit Product Details
 
 from typing import Optional
 from pydantic import BaseModel, condecimal
