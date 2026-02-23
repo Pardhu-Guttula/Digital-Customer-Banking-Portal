@@ -1,4 +1,4 @@
-# Epic Title: Implement role-based access control for user authorization
+# Epic Title: Managing user roles and permissions
 
 from flask import Flask, send_from_directory
 from backend.access_control.controllers.role_controller import role_bp
