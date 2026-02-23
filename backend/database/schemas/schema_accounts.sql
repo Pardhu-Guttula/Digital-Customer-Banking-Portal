@@ -1,4 +1,4 @@
-# Epic Title: User Registration Backend Logic
+# Epic Title: Store User Data Securely
 
 CREATE TABLE accounts (
     id SERIAL PRIMARY KEY,
