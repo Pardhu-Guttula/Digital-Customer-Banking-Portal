@@ -12,6 +12,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    # Environment variables
+    env:
+      vm_name: customer-banking
+
     steps:
     - uses: actions/checkout@v2
 
