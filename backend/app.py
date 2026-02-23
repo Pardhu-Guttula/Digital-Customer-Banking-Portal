@@ -1,4 +1,4 @@
-# Epic Title: Responsive Design for Tablet using React
+# Epic Title: Responsive Design for Mobile using React
 
 from flask import Flask, send_from_directory
 from backend.authentication.controllers.auth_controller import auth_bp
