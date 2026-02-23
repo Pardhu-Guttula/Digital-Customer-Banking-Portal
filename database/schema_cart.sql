@@ -1,13 +1,13 @@
-# Epic Title: Add Product to Shopping Cart
+# Epic Title: Persist Shopping Cart Data in PostgreSQL
 
 CREATE TABLE carts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE cart_items (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     cart_id INT NOT NULL,
     product_id INT NOT NULL,
     quantity INT NOT NULL,
