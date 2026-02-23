@@ -1,4 +1,4 @@
-# Epic Title: Email notifications for status updates
+# Epic Title: Develop streamlined workflows for submitting service modification requests
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
