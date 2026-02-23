@@ -1,13 +1,13 @@
-# Epic Title: Develop streamlined workflows for submitting service modification requests
+# Epic Title: Develop streamlined workflows for submitting account opening requests
 
 import React from 'react';
-import ServiceModificationForm from './ServiceModificationForm';
+import AccountOpeningForm from './AccountOpeningForm';
 
 const App = () => {
     return (
         <div>
-            <h1>Service Modification</h1>
-            <ServiceModificationForm />
+            <h1>Account Opening</h1>
+            <AccountOpeningForm />
         </div>
     );
 };
