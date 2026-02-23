@@ -1,4 +1,4 @@
-# Epic Title: Implement Product Recommendations Based on User Preferences
+# Epic Title: Integrate PostgreSQL Database for Data Management in the Admin Dashboard
 
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
