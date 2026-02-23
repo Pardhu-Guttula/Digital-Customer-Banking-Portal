@@ -1,9 +1,10 @@
-# Epic Title: Remove Product from Shopping Cart
+# Epic Title: Persist Shopping Cart Data in PostgreSQL
 
 from typing import Optional, List
 from pydantic import BaseModel
 
 class CartItem(BaseModel):
+    id: Optional[int]
     product_id: int
     quantity: int
 
