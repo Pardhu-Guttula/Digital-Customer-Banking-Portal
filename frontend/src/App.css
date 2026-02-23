@@ -1,4 +1,4 @@
-# Epic Title: Responsive Design for Mobile using React
+# Epic Title: Dashboard Backend Data Integration
 
 /* Base Styling */
 body {
@@ -9,51 +9,27 @@ body {
 
 #root {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
-}
-
-/* LoginForm Styling */
-form {
-    background: #fff;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    width: calc(100% - 40px); 
-    max-width: 400px;
-}
-
-form div {
-    margin-bottom: 15px;
-}
-
-form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-form input {
-    width: 100%;
-    padding: 8px;
     box-sizing: border-box;
 }
 
-form button {
+/* Dashboard Styling */
+h1, h2 {
+    color: #333;
+}
+
+div {
+    background: #fff;
+    margin-top: 20px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
     width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+    max-width: 800px;
 }
 
-form button:hover {
-    background-color: #0056b3;
-}
-
-form p {
-    color: red;
-    margin-top: 10px;
+div > div {
+    margin-bottom: 15px;
 }
