@@ -1,7 +1,7 @@
-# Epic Title: Document Upload
+# Epic Title: Save incomplete application state
 
 from flask import Flask, send_from_directory
-from backend.document_upload.controllers.document_upload_controller import document_upload_bp
+from backend.application.controllers.application_state_controller import application_state_bp
 from backend.database.config import Base, engine
 import os
 from cryptography.fernet import Fernet
@@ -17,7 +17,7 @@ if not os.path.exists(encryption_key_file):
 with open(encryption_key_file, 'r') as file:
     os.environ['ENCRYPTION_KEY'] = file.read()
 
-app.register_blueprint(document_upload_bp, url_prefix='/api')
+app.register_blueprint(application_state_bp, url_prefix='/api')
 
 @app.before_first_request
 def startup():
