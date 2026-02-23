@@ -1,4 +1,4 @@
-# Epic Title: Remove Product from Shopping Cart
+# Epic Title: Persist Shopping Cart Data in PostgreSQL
 
 import logging
 from flask import Flask
