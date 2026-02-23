@@ -1,13 +1,13 @@
-# Epic Title: Track and Analyze User Behavior
+# Epic Title: Track and Analyze Sales Data
 
 from flask import Flask
-from backend.analytics_reporting.controllers.insight_controller import insight_bp
+from backend.analytics_reporting.controllers.report_controller import report_bp
 from backend.database.config import Base, engine
 
 app = Flask(__name__)
 
 # Register blueprints
-app.register_blueprint(insight_bp, url_prefix='/api/insights')
+app.register_blueprint(report_bp, url_prefix='/api/reports')
 
 @app.before_first_request
 def startup():
