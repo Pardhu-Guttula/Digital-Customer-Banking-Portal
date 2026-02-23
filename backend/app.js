@@ -1,38 +1,24 @@
-// Epic Title: Implement Backend with Node.js
+// Epic Title: Backend Data Aggregation Using Node.js
 
 const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan');
-const helmet = require('helmet');
-const { Pool } = require('pg');
-const orderRouter = require('./order_management/controllers/orderController');
+const mongoose = require('mongoose');
+const dataController = require('./data_aggregation/controllers/data_controller');
 
 const app = express();
+const DATABASE_URL = 'mongodb://localhost:27017/mydatabase';
 
-// Middleware
-app.use(cors());
-app.use(helmet());
-app.use(morgan('dev'));
-app.use(express.json());
-
-// Database connection
-const pool = new Pool({
-  user: 'user',
-  host: 'localhost',
-  database: 'mydatabase',
-  password: 'password',
-  port: 5432,
+mongoose.connect(DATABASE_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
-pool.connect()
-  .then(() => console.log('Connected to PostgreSQL'))
-  .catch(err => console.error('Connection error', err.stack));
+app.use('/api/data', dataController);
 
-// Routes
-app.use('/api/orders', orderRouter);
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
 
-const PORT = process.env.PORT || 3000;
-
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
