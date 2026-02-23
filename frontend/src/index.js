@@ -1,4 +1,4 @@
-# Epic Title: Dynamic and Interactive Dashboard UI using React
+# Epic Title: Personalized Dashboard Layout
 
 import React from 'react';
 import ReactDOM from 'react-dom';
