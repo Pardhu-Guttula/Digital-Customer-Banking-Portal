@@ -1,4 +1,4 @@
-# Epic Title: Payment Processing During Checkout
+# Epic Title: Store Order and Payment Information in PostgreSQL
 
 CREATE TABLE payments (
     id SERIAL PRIMARY KEY,
