@@ -1,4 +1,4 @@
-# Epic Title: Track and Analyze Sales Data
+# Epic Title: Enable Users to Leave Reviews and Ratings for Products
 
 import logging
 from sqlalchemy import create_engine
