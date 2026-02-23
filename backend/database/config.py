@@ -1,4 +1,4 @@
-# Epic Title: Develop streamlined workflows for submitting account opening requests
+# Epic Title: Dynamic and Interactive Dashboard UI using React
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
