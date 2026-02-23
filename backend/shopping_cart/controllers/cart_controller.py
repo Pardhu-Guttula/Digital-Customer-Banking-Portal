@@ -1,21 +1,29 @@
-# Epic Title: Remove Product from Shopping Cart
+# Epic Title: Persist Shopping Cart Data in PostgreSQL
 
 from flask import Blueprint, request, jsonify
 from pydantic import ValidationError
-from backend.shopping_cart.models.cart import CartItem
+from backend.shopping_cart.models.cart import CartItem, Cart
 from backend.shopping_cart.services.cart_service import CartService
 
 cart_bp = Blueprint('cart', __name__)
 
-@cart_bp.route('/remove-from-cart', methods=['DELETE'])
-def remove_from_cart():
+@cart_bp.route('/update-cart', methods=['PUT'])
+def update_cart():
     try:
         cart_data = request.json
-        cart_item = CartItem(**cart_data)
-        result = CartService.remove_item_from_cart(cart_item)
+        cart = Cart(**cart_data)
+        result = CartService.update_cart(cart)
         if result:
-            return jsonify({"message": "Product removed from cart"}), 200
+            return jsonify({"message": "Cart updated successfully"}), 200
         else:
-            return jsonify({"error": "Product not found in cart"}), 400
+            return jsonify({"error": "Error updating cart"}), 500
     except ValidationError as e:
         return jsonify({"errors": e.errors()}), 400
+
+@cart_bp.route('/get-cart/<int:user_id>', methods=['GET'])
+def get_cart(user_id: int):
+    try:
+        cart = CartService.get_cart_by_user_id(user_id)
+        return jsonify(cart), 200
+    except Exception as e:
+        return jsonify({"error": f"Error retrieving cart: {str(e)"}), 500
