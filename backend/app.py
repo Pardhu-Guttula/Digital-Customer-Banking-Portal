@@ -1,13 +1,13 @@
-# Epic Title: Multi-Factor Authentication Setup
+# Epic Title: User Registration Form
 
 from flask import Flask
-from backend.authentication.controllers.mfa_controller import mfa_bp
+from backend.user_registration.controllers.account_controller import account_bp
 from backend.database.config import Base, engine
 
 app = Flask(__name__)
 
 # Register blueprints
-app.register_blueprint(mfa_bp, url_prefix='/api')
+app.register_blueprint(account_bp, url_prefix='/api')
 
 @app.before_first_request
 def startup():
