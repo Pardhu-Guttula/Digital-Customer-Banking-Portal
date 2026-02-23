@@ -1,4 +1,4 @@
-# Epic Title: Multi-Factor Authentication Setup
+# Epic Title: User Authentication and Authorization
 
 from flask import Blueprint, request, jsonify
 from sqlalchemy.exc import SQLAlchemyError
