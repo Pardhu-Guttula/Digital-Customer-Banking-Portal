@@ -1,4 +1,4 @@
-# Epic Title: Payment Processing During Checkout
+# Epic Title: Store Order and Payment Information in PostgreSQL
 
 from typing import Optional
 from pydantic import BaseModel, constr
