@@ -1,4 +1,4 @@
-# Epic Title: Implement role-based access control for user authorization
+# Epic Title: Managing user roles and permissions
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
