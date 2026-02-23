@@ -1,4 +1,4 @@
-# Epic Title: Multi-Factor Authentication Setup
+# Epic Title: Secure Login System with MFA
 
 from sqlalchemy.orm import Session
 from backend.authentication.models.mfa_setup import MFASetup
@@ -7,20 +7,6 @@ from backend.authentication.models.token import Token
 class MFARepository:
     def __init__(self, db: Session):
         self.db = db
-
-    def create_mfa_setup(self, account_id: int, mfa_method: str) -> MFASetup:
-        mfa_setup = MFASetup(account_id=account_id, mfa_method=mfa_method)
-        self.db.add(mfa_setup)
-        self.db.commit()
-        self.db.refresh(mfa_setup)
-        return mfa_setup
-
-    def activate_mfa_setup(self, account_id: int, mfa_method: str) -> None:
-        self.db.query(MFASetup).filter(
-            MFASetup.account_id == account_id,
-            MFASetup.mfa_method == mfa_method
-        ).update({"is_active": True})
-        self.db.commit()
 
     def create_token(self, account_id: int, token: str) -> Token:
         mfa_token = Token(account_id=account_id, token=token)
