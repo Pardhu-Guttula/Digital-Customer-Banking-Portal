@@ -1,15 +1,13 @@
-# Epic Title: Dashboard Backend Data Integration
+# Epic Title: Implement user interface using React
 
 import React from 'react';
-import Dashboard from './Dashboard';
+import WorkflowForm from './WorkflowForm';
 
 const App = () => {
-    const userId = 'user123';
-
     return (
         <div>
-            <h1>Banking Dashboard</h1>
-            <Dashboard userId={userId} />
+            <h1>Workflow Request Submission</h1>
+            <WorkflowForm />
         </div>
     );
 };
