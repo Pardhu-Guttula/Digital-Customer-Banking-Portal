@@ -1,4 +1,4 @@
-# Epic Title: User Authentication and Authorization
+# Epic Title: Login and Authentication
 
 from flask import Blueprint, request, jsonify
 from pydantic import ValidationError
