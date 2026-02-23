@@ -1,8 +1,8 @@
-# Epic Title: Multi-Factor Authentication Setup
+# Epic Title: Secure Login System with MFA
 
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from backend.database.config import Base
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class Token(Base):
     __tablename__ = 'tokens'
