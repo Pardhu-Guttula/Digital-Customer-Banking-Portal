@@ -1,14 +1,1 @@
-FAILURE NOTICE:
-
-Epic Title Constraint Violation:
-- User stories specified use of Spring Boot, while techstack indicates Flask.
-
-Path Constraint Violation:
-- Given folder structure and no user guidance on adapting paths for Spring Boot, safe file generation cannot proceed.
-
-Compliance Failure:
-- Epic Title enforcement
-- Techstack alignment
-- Path safety and occupancy
-
-IMMEDIATE TERMINATION WITH NO OUTPUT.
+Epic Title: Implement role-based access control for user authorization
