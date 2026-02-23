@@ -1,38 +1,44 @@
-# Epic Title: Track User Orders
+# Epic Title: Integrate with PostgreSQL for Data Storage
 
-from flask import Blueprint, request, jsonify
-from pydantic import ValidationError
-from backend.order_management.models.order import Order, OrderStatus
-from backend.order_management.services.order_service import OrderService
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from backend.database.config import get_db
+from backend.order_management.models.order import Order as OrderModel, OrderStatus as OrderStatusModel, OrderItem as OrderItemModel
+from backend.order_management.schemas.order import OrderCreate, OrderUpdate, OrderOut
 
-order_bp = Blueprint('order', __name__)
+router = APIRouter()
 
-@order_bp.route('/view-orders/<int:user_id>', methods=['GET'])
-def view_orders(user_id: int):
-    try:
-        orders = OrderService.get_orders_by_user_id(user_id)
-        return jsonify(orders), 200
-    except Exception as e:
-        return jsonify({"error": f"Error retrieving orders: {str(e)}"}), 500
+@router.post("/", response_model=OrderOut, status_code=status.HTTP_201_CREATED)
+def create_order(order: OrderCreate, db: Session = Depends(get_db)):
+    db_order = OrderModel(**order.dict())
+    db.add(db_order)
+    db.commit()
+    db.refresh(db_order)
+    return db_order
 
-@order_bp.route('/update-order-status/<int:order_id>', methods=['PUT'])
-def update_order_status(order_id: int):
-    try:
-        status_data = request.json
-        status = OrderStatus(**status_data)
-        result = OrderService.update_order_status(order_id, status)
-        if result:
-            return jsonify({"message": "Order status updated successfully"}), 200
-        else:
-            return jsonify({"error": "Error updating order status"}), 500
-    except ValidationError as e:
-        return jsonify({"errors": e.errors()}), 400
+@router.get("/{order_id}", response_model=OrderOut)
+def get_order(order_id: int, db: Session = Depends(get_db)):
+    order = db.query(OrderModel).filter(OrderModel.id == order_id).first()
+    if order is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Order not found")
+    return order
 
-@order_bp.route('/filter-orders/<int:user_id>', methods=['GET'])
-def filter_orders(user_id: int):
-    status = request.args.get('status')
-    try:
-        orders = OrderService.filter_orders_by_status(user_id, status)
-        return jsonify(orders), 200
-    except Exception as e:
-        return jsonify({"error": f"Error filtering orders: {str(e)}"}), 500
+@router.put("/{order_id}", response_model=OrderOut)
+def update_order(order_id: int, order: OrderUpdate, db: Session = Depends(get_db)):
+    db_order = db.query(OrderModel).filter(OrderModel.id == order_id).first()
+    if db_order is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Order not found")
+    for key, value in order.dict().items():
+        setattr(db_order, key, value)
+    db.commit()
+    db.refresh(db_order)
+    return db_order
+
+@router.delete("/{order_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_order(order_id: int, db: Session = Depends(get_db)):
+    db_order = db.query(OrderModel).filter(OrderModel.id == order_id).first()
+    if db_order is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Order not found")
+    db.delete(db_order)
+    db.commit()
+    return
