@@ -1,13 +1,13 @@
-# Epic Title: Implement user interface using React
+# Epic Title: Develop streamlined workflows for submitting service modification requests
 
 import React from 'react';
-import WorkflowForm from './WorkflowForm';
+import ServiceModificationForm from './ServiceModificationForm';
 
 const App = () => {
     return (
         <div>
-            <h1>Workflow Request Submission</h1>
-            <WorkflowForm />
+            <h1>Service Modification</h1>
+            <ServiceModificationForm />
         </div>
     );
 };
