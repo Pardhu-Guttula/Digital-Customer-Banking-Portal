@@ -1,4 +1,4 @@
-# Epic Title: Dashboard Backend Data Integration
+# Epic Title: Dynamic and Interactive Dashboard UI using React
 
 from flask import Blueprint, request, jsonify
 from sqlalchemy.exc import SQLAlchemyError
