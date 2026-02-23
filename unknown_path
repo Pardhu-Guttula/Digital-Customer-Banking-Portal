@@ -4,7 +4,7 @@ Epic Title Constraint Violation:
 - User stories specified use of Spring Boot, while techstack indicates Flask.
 
 Path Constraint Violation:
-- Given folder structure and no user guidance on introducing Spring Boot-related paths, safe file generation cannot proceed.
+- Given folder structure and no user guidance on adapting paths for Spring Boot, safe file generation cannot proceed.
 
 Compliance Failure:
 - Epic Title enforcement
