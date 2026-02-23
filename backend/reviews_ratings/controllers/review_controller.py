@@ -13,10 +13,10 @@ def submit():
     product_id = data.get('product_id')
     user_id = data.get('user_id')
 
-    if not rating:
-        return jsonify({"error": "Rating is required"}), 400
-    if len(content) > 500:
-        return jsonify({"error": "Review content exceeds 500 characters"}), 400
+    if rating is None or not (1 <= rating <= 5):
+        return jsonify({"error": "Rating must be between 1 to 5"}), 400
+    if not content:
+        return jsonify({"error": "Content is required"}), 400
 
     try:
         submit_review(content, rating, product_id, user_id)
