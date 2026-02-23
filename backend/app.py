@@ -1,12 +1,12 @@
-# Epic Title: Develop streamlined workflows for submitting account opening requests
+# Epic Title: Dynamic and Interactive Dashboard UI using React
 
 from flask import Flask, send_from_directory
-from backend.account_management.controllers.account_controller import account_bp
+from backend.dashboard.controllers.dashboard_controller import dashboard_bp
 from backend.database.config import Base, engine
 import os
 from cryptography.fernet import Fernet
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
 
 encryption_key_file = 'encryption_key'
 if not os.path.exists(encryption_key_file):
@@ -17,7 +17,7 @@ if not os.path.exists(encryption_key_file):
 with open(encryption_key_file, 'r') as file:
     os.environ['ENCRYPTION_KEY'] = file.read()
 
-app.register_blueprint(account_bp, url_prefix='/api')
+app.register_blueprint(dashboard_bp, url_prefix='/api')
 
 @app.before_first_request
 def startup():
