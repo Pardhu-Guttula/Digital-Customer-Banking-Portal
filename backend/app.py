@@ -1,26 +1,13 @@
-# Epic Title: Secure Login System with MFA
+# Epic Title: Multi-Factor Authentication Setup
 
 from flask import Flask
-from backend.authentication.controllers.auth_controller import auth_bp
+from backend.authentication.controllers.mfa_controller import mfa_bp
 from backend.database.config import Base, engine
-import os
-from cryptography.fernet import Fernet
 
 app = Flask(__name__)
 
-# Generate encryption key if not already existing
-encryption_key_file = 'encryption_key'
-if not os.path.exists(encryption_key_file):
-    key = Fernet.generate_key().decode()
-    with open(encryption_key_file, 'w') as file:
-        file.write(key)
-
-# Load encryption key to environment variable
-with open(encryption_key_file, 'r') as file:
-    os.environ['ENCRYPTION_KEY'] = file.read()
-
 # Register blueprints
-app.register_blueprint(auth_bp, url_prefix='/api')
+app.register_blueprint(mfa_bp, url_prefix='/api')
 
 @app.before_first_request
 def startup():
