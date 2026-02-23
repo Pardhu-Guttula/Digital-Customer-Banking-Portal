@@ -1,4 +1,4 @@
-# Epic Title: Remove Product from Shopping Cart
+# Epic Title: Persist Shopping Cart Data in PostgreSQL
 
 from typing import Optional
 from pydantic import BaseModel, condecimal
