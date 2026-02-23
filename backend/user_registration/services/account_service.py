@@ -1,4 +1,4 @@
-# Epic Title: User Registration Backend Logic
+# Epic Title: Store User Data Securely
 
 from sqlalchemy.orm import Session
 from backend.user_registration.repositories.account_repository import AccountRepository
@@ -14,7 +14,7 @@ class AccountService:
     def validate_password(self, password: str) -> bool:
         return len(password) >= 8
 
-    def validate_registration_data(self, name: str, email: str, password: str) -> Optional[str]:
+    def validate_registration_data(self, name: str, email: str, password: str) -> str:
         if not name or not email or not password:
             return self.GENERAL_VALIDATION_ERROR
         if not self.validate_password(password):
