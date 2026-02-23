@@ -1,4 +1,4 @@
-# Epic Title: Managing user roles and permissions
+# Epic Title: Security Measures for API Integration
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
