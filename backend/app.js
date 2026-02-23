@@ -1,10 +1,10 @@
-// Epic Title: Implement Product Recommendations Based on User Preferences
+// Epic Title: Implement Backend Endpoints Using Node.js for Admin Dashboard
 
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const recommendationRouter = require('./product_recommendations/controllers/recommendationController');
+const adminRouter = require('./admin_dashboard/controllers/adminController');
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Routes
-app.use('/api/recommendations', recommendationRouter);
+app.use('/api/admin', adminRouter);
 
 const PORT = process.env.PORT || 3000;
 
