@@ -1,19 +1,15 @@
-# Epic Title: Order Confirmation Display After Successful Purchase
+# Epic Title: Store Order and Payment Information in PostgreSQL
 
-from typing import Optional, List
+from typing import Optional
 from pydantic import BaseModel
+from backend.checkout.models.payment import Payment
 from backend.checkout.models.address import Address
-
-class OrderItem(BaseModel):
-    product_id: int
-    quantity: int
-    price: float
 
 class Order(BaseModel):
     id: Optional[int]
     user_id: int
     address_id: Optional[int]
-    items: List[OrderItem]
+    payment_id: Optional[int]
     total_amount: float
 
     class Config:
