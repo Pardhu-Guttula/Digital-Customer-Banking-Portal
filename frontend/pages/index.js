@@ -1,23 +1,13 @@
-// Epic Title: Implement Frontend with Next.js
+// Epic Title: Develop Admin Dashboard Interface Using Next.js
 
 import React from 'react';
-import Link from 'next/link';
+import Dashboard from '../components/Dashboard';
+import Layout from '../components/Layout';
 
-const Home = () => {
+export default function Home() {
   return (
-    <div>
-      <h1>Welcome to the Next.js App</h1>
-      <nav>
-        <ul>
-          <li>
-            <Link href="/orders">
-              <a>View Orders</a>
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <Layout>
+      <Dashboard />
+    </Layout>
   );
-};
-
-export default Home;
+}
