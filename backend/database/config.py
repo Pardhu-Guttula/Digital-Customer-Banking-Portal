@@ -1,4 +1,4 @@
-# Epic Title: Track and Analyze User Behavior
+# Epic Title: Track and Analyze Sales Data
 
 import logging
 from sqlalchemy import create_engine
