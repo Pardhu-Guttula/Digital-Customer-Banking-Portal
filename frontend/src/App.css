@@ -1,4 +1,4 @@
-# Epic Title: Dynamic and Interactive Dashboard UI using React
+# Epic Title: Personalized Dashboard Layout
 
 /* Base Styling */
 body {
@@ -32,17 +32,4 @@ div {
 
 div > div {
     margin-bottom: 15px;
-}
-
-/* Widgets Styling */
-.widget {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.widget:hover {
-    background-color: #f0f0f0;
 }
