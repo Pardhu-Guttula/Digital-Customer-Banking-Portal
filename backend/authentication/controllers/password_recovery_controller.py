@@ -1,4 +1,4 @@
-# Epic Title: Password Recovery
+# Epic Title: User Authentication and Authorization
 
 from flask import Blueprint, request, jsonify
 from pydantic import ValidationError
