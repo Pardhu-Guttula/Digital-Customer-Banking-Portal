@@ -1,4 +1,4 @@
-# Epic Title: User Registration Form
+# Epic Title: User Registration Backend Logic
 
 from sqlalchemy import Column, Integer, String
 from backend.database.config import Base
