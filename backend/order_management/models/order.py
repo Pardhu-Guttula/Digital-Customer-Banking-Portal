@@ -1,11 +1,8 @@
-# Epic Title: Track User Orders
+# Epic Title: Order Confirmation Display After Successful Purchase
 
 from typing import Optional, List
 from pydantic import BaseModel
-
-class OrderStatus(BaseModel):
-    id: Optional[int]
-    status: str
+from backend.checkout.models.address import Address
 
 class OrderItem(BaseModel):
     product_id: int
@@ -18,7 +15,6 @@ class Order(BaseModel):
     address_id: Optional[int]
     items: List[OrderItem]
     total_amount: float
-    status: OrderStatus
 
     class Config:
         orm_mode = True
