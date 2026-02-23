@@ -1,6 +1,6 @@
 Flask==2.0.2
 SQLAlchemy==1.4.25
-mysqlclient==2.1.0
+psycopg2==2.9.1
 cryptography==3.4.7
 axios==0.21.4
 react==17.0.2
