@@ -1,4 +1,4 @@
-# Epic Title: Order Confirmation Display After Successful Purchase
+# Epic Title: Store Order and Payment Information in PostgreSQL
 
 import logging
 from flask import Flask
@@ -8,7 +8,6 @@ from backend.shopping_cart.controllers.cart_controller import cart_bp
 from backend.authentication.controllers.login_controller import login_bp
 from backend.authentication.controllers.register_controller import register_bp
 from backend.authentication.controllers.password_recovery_controller import password_recovery_bp
-from backend.order_management.controllers.confirmation_controller import confirmation_bp
 
 def create_app() -> Flask:
     app = Flask(__name__)
@@ -18,7 +17,6 @@ def create_app() -> Flask:
     app.register_blueprint(login_bp)
     app.register_blueprint(register_bp)
     app.register_blueprint(password_recovery_bp)
-    app.register_blueprint(confirmation_bp)
     logging.basicConfig(level=logging.INFO)
     return app
 
