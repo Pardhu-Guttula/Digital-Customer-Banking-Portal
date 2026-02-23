@@ -1,4 +1,4 @@
-# Epic Title: Edit Product Details
+# Epic Title: Update Product Quantity in Shopping Cart
 
 from typing import Optional
 from pydantic import BaseModel, condecimal
