@@ -1,4 +1,4 @@
-# Epic Title: Track and Analyze Sales Data
+# Epic Title: Data Storage and Retrieval Using PostgreSQL
 
 from sqlalchemy import Column, Integer, Float, TIMESTAMP, ForeignKey
 from sqlalchemy.orm import relationship
