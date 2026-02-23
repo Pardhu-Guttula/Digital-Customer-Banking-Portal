@@ -1,18 +1,16 @@
-# Epic Title: Store User Activity Data in PostgreSQL
+# Epic Title: Implement Product Recommendations Based on User Preferences
 
 from flask import Flask
-from backend.product_recommendations.controllers.history_controller import history_bp
-from backend.database.config import Base, engine
+from backend.product_recommendations.controllers.recommendation_controller import recommendation_bp
 
 app = Flask(__name__)
 
-# Register blueprints
-app.register_blueprint(history_bp, url_prefix='/api/history')
+app.register_blueprint(recommendation_bp, url_prefix='/api/recommendations')
 
 @app.before_first_request
 def startup():
-    # Create all tables in the database
-    Base.metadata.create_all(bind=engine)
+    # Code to run on startup, e.g., establish db connection, initialize resources
+    pass
 
 @app.teardown_appcontext
 def shutdown(exception):
