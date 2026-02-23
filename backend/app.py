@@ -1,4 +1,4 @@
-# Epic Title: Responsive Design for Desktop using React
+# Epic Title: Secure Login Interface with React and MFA
 
 from flask import Flask, send_from_directory
 from backend.authentication.controllers.auth_controller import auth_bp
