@@ -1,4 +1,4 @@
-# Epic Title: User Registration Form
+# Epic Title: User Registration Backend Logic
 
 CREATE TABLE accounts (
     id SERIAL PRIMARY KEY,
