@@ -1,7 +1,7 @@
-# Epic Title: Capture and maintain a history of user interactions
+# Epic Title: Email notifications for status updates
 
 from flask import Flask, send_from_directory
-from backend.history.controllers.user_interaction_controller import user_interaction_bp
+from backend.notifications.controllers.email_notification_controller import email_notification_bp
 from backend.database.config import Base, engine
 import os
 from cryptography.fernet import Fernet
@@ -17,7 +17,7 @@ if not os.path.exists(encryption_key_file):
 with open(encryption_key_file, 'r') as file:
     os.environ['ENCRYPTION_KEY'] = file.read()
 
-app.register_blueprint(user_interaction_bp, url_prefix='/api')
+app.register_blueprint(email_notification_bp, url_prefix='/api')
 
 @app.before_first_request
 def startup():
