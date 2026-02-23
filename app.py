@@ -1,4 +1,4 @@
-# Epic Title: Product Listing Page
+# Epic Title: Edit Product Details
 
 import logging
 from flask import Flask
