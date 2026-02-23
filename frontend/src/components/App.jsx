@@ -1,13 +1,15 @@
-# Epic Title: Responsive Design for Mobile using React
+# Epic Title: Dashboard Backend Data Integration
 
 import React from 'react';
-import LoginForm from './LoginForm';
+import Dashboard from './Dashboard';
 
 const App = () => {
+    const userId = 'user123';
+
     return (
         <div>
-            <h1>Login</h1>
-            <LoginForm />
+            <h1>Banking Dashboard</h1>
+            <Dashboard userId={userId} />
         </div>
     );
 };
