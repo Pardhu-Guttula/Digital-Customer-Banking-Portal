@@ -1,4 +1,4 @@
-# Epic Title: Multi-Factor Authentication Setup
+# Epic Title: Secure Login System with MFA
 
 CREATE TABLE tokens (
     id SERIAL PRIMARY KEY,
