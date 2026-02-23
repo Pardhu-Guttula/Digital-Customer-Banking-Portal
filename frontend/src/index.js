@@ -1,4 +1,4 @@
-# Epic Title: Dashboard Backend Data Integration
+# Epic Title: Implement user interface using React
 
 import React from 'react';
 import ReactDOM from 'react-dom';
