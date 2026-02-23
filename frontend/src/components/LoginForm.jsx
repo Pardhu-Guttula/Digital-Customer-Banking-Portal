@@ -1,4 +1,4 @@
-# Epic Title: Responsive Design for Mobile using React
+# Epic Title: Responsive Design for Desktop using React
 
 import React, { useState } from 'react';
 import axios from 'axios';
