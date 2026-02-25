@@ -1,3 +1,4 @@
 FastAPI==0.68.0
 psycopg2-binary==2.9.1
+requests==2.26.0
 uvicorn==0.15.0
