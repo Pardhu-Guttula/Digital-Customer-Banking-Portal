@@ -1,4 +1,4 @@
-# Epic Title: Backend User Authentication with Multi-Factor Authentication
+# Epic Title: User Authentication and Session Management for Secure Login
 
 from typing import Optional
 from werkzeug.security import check_password_hash
