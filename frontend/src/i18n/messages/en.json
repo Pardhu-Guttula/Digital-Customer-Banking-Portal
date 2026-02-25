@@ -1,0 +1,18 @@
+{
+  "common.applyNow": "Apply Now",
+  "common.continue": "Continue",
+  "common.icon": "Icon",
+  "common.status": "Status",
+  "common.viewAll": "View All",
+  "productsForYou.applyAriaLabel": "{ctaLabel}: {title}",
+  "productsForYou.badge.limitedOffer": "Limited Offer",
+  "productsForYou.badge.preApproved": "Pre-approved",
+  "productsForYou.badge.recommended": "Recommended",
+  "productsForYou.product.goldCreditCard.description": "0% APR for 12 months + 2% cashback",
+  "productsForYou.product.goldCreditCard.title": "Gold Credit Card",
+  "productsForYou.product.personalLoan.description": "Pre-approved up to $50,000 at 6.9% APR",
+  "productsForYou.product.personalLoan.title": "Personal Loan",
+  "productsForYou.product.premiumSavings.description": "Earn up to 4.5% APY with no minimum balance",
+  "productsForYou.product.premiumSavings.title": "Premium Savings Account",
+  "productsForYou.sectionTitle": "Products for You"
+}
