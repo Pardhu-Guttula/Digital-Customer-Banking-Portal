@@ -1,23 +1,28 @@
-# Epic Title: Real-time Status Updates Using React and Redis
+# Epic Title: Backend API Development with FastAPI
 
-from flask import Blueprint, jsonify
+from fastapi import APIRouter, HTTPException
 from backend.realtime_status_updates.services.status_update_service import StatusUpdateService
 import logging
 
-status_update_controller = Blueprint('status_update_controller', __name__)
+router = APIRouter()
 service = StatusUpdateService()
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-@status_update_controller.route('/status/<int:request_id>', methods=['GET'])
-def get_status_update(request_id):
+@router.get("/status/{request_id}")
+async def get_status_update(request_id: int):
     logger.info(f"Fetching status update for request ID: {request_id}")
     try:
         status = service.get_status_from_cache(request_id)
         if status is None:
             status = service.get_status_from_db(request_id)
-        return jsonify({'request_id': request_id, 'status': status}), 200
+        if status is None:
+            raise HTTPException(status_code=404, detail="Request ID not found")
+        return {"request_id": request_id, "status": status}
+    except HTTPException as e:
+        logger.error(f"HTTP error: {e.detail}")
+        raise
     except Exception as e:
-        logger.error(f"Error fetching status update: {e}")
-        return jsonify({'error': 'Internal server error'}), 500
+        logger.error(f"Internal server error: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
