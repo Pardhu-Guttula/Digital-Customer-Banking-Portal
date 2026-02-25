@@ -1,4 +1,4 @@
-# Epic Title: Develop React UI for Submitting Service Modification Requests
+# Epic Title: Implement FastAPI Backend for Handling Service Modification Requests
 
 from pydantic import BaseModel
 
