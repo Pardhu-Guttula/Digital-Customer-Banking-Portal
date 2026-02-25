@@ -1,12 +1,12 @@
-# Epic Title: Real-time Status Updates Using React and Redis
+# Epic Title: React UI for Service Modification Requests
 
 import React from 'react';
-import StatusTracker from './components/StatusTracker';
+import ServiceModificationForm from './components/ServiceModificationForm';
 
 function App() {
   return (
     <div className="App">
-      <StatusTracker />
+      <ServiceModificationForm />
     </div>
   );
 }
