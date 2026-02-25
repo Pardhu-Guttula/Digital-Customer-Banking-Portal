@@ -1,4 +1,4 @@
-# Epic Title: PostgreSQL Data Storage for Account Opening Requests
+# Epic Title: Redis Caching for Account Opening Requests
 
 from flask import Blueprint, request, jsonify
 from backend.account_opening.services.account_opening_service import AccountOpeningService
@@ -19,7 +19,7 @@ def submit_account_opening():
         result, error = service.process_request(data)
         if error:
             return jsonify({'error': error}), 400
-        return jsonify({'message': 'Account opening request stored successfully'}), 200
+        return jsonify({'message': 'Account opening request processed successfully'}), 200
     except Exception as e:
         logger.error(f"Error processing account opening request: {e}")
         return jsonify({'error': 'Internal server error'}), 500
