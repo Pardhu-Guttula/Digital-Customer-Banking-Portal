@@ -1,4 +1,4 @@
-# Epic Title: FastAPI Email Notification Service
+# Epic Title: Log Email Communication in PostgreSQL
 
 CREATE TABLE email_logs (
     id SERIAL PRIMARY KEY,
@@ -6,5 +6,6 @@ CREATE TABLE email_logs (
     status VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
     sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE (request_id, status)
+    delivery_status VARCHAR(10) NOT NULL,
+    UNIQUE (request_id, status, delivery_status)
 );
