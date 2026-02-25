@@ -1,4 +1,5 @@
 FastAPI==0.68.0
 aiofiles==0.6.0
 asyncpg==0.21.0
+cryptography==3.4.7
 uvicorn==0.15.0
