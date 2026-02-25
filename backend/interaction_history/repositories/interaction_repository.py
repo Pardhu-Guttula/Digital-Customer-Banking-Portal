@@ -1,4 +1,4 @@
-# Epic Title: Store User Interaction Data in PostgreSQL
+# Epic Title: Develop a Feature in React for Users to Access Interaction History
 
 import psycopg2
 import logging
@@ -31,12 +31,20 @@ class InteractionRepository:
         cursor = self.connection.cursor()
         try:
             cursor.execute("""
-                SELECT user_id, interaction_type, interaction_data
+                SELECT user_id, interaction_type, interaction_data, created_at
                 FROM user_interactions
                 WHERE user_id = %s
+                ORDER BY created_at DESC
             """, (user_id,))
             rows = cursor.fetchall()
-            return [{"user_id": row[0], "interaction_type": row[1], "interaction_data": row[2]} for row in rows]
+            return [
+                {
+                    "user_id": row[0],
+                    "interaction_type": row[1],
+                    "interaction_data": row[2],
+                    "created_at": row[3].isoformat()
+                } for row in rows
+            ]
         except psycopg2.Error as e:
             self.connection.rollback()
             logger.error(f"Error retrieving interactions: {e}")
