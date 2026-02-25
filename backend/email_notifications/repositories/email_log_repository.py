@@ -1,4 +1,4 @@
-# Epic Title: FastAPI Email Notification Service
+# Epic Title: Log Email Communication in PostgreSQL
 
 import psycopg2
 import logging
@@ -9,16 +9,16 @@ class EmailLogRepository:
             host='localhost', database='service_db', user='service_user', password='service_password'
         )
     
-    def log_email_sent(self, request_id: int, status: str, user_email: str):
+    def log_email_sent(self, request_id: int, status: str, user_email: str, delivery_status: str):
         logger = logging.getLogger(__name__)
         cursor = self.connection.cursor()
         try:
             cursor.execute("""
-                INSERT INTO email_logs (request_id, status, email)
-                VALUES (%s, %s, %s)
-            """, (request_id, status, user_email))
+                INSERT INTO email_logs (request_id, status, email, delivery_status)
+                VALUES (%s, %s, %s, %s)
+            """, (request_id, status, user_email, delivery_status))
             self.connection.commit()
-            logger.info(f"Logged email sent for request ID: {request_id}, status: {status}, email: {user_email}")
+            logger.info(f"Logged email sent for request ID: {request_id}, status: {status}, email: {user_email}, delivery_status: {delivery_status}")
         except psycopg2.Error as e:
             self.connection.rollback()
             logger.error(f"Error logging email: {e}")
@@ -32,7 +32,7 @@ class EmailLogRepository:
         try:
             cursor.execute("""
                 SELECT 1 FROM email_logs 
-                WHERE request_id = %s AND status = %s
+                WHERE request_id = %s AND status = %s AND delivery_status = 'sent'
             """, (request_id, status))
             result = cursor.fetchone()
             return bool(result)
