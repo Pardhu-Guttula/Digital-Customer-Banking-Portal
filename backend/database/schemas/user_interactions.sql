@@ -1,8 +1,10 @@
-# Epic Title: Capture and maintain a history of user interactions
+# Epic Title: Develop a Feature in React for Users to Access Interaction History
 
 CREATE TABLE user_interactions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id VARCHAR(255) NOT NULL,
-    action VARCHAR(255) NOT NULL,
-    timestamp DATETIME NOT NULL
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    interaction_type VARCHAR(50) NOT NULL,
+    interaction_data JSONB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
