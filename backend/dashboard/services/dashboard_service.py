@@ -1,22 +1,19 @@
-# Epic Title: Dynamic and Interactive Dashboard UI using React
+# Epic Title: Personalized User Dashboard for Banking Products and Services
 
 from backend.dashboard.repositories.dashboard_repository import DashboardRepository
+from backend.services.cache_service import CacheService
+import logging
 
 class DashboardService:
-    def __init__(self, db):
-        self.dashboard_repository = DashboardRepository(db)
+    def __init__(self):
+        self.repository = DashboardRepository()
+        self.cache_service = CacheService()
 
-    def fetch_dashboard_data(self, user_id: str):
-        user_profile = self.dashboard_repository.get_user_profile(user_id)
+    def get_personalized_dashboard(self, user_id: int):
+        cache_key = f'user_dashboard_{user_id}'
+        data = self.cache_service.get(cache_key)
         
-        if not user_profile:
-            return None
-        
-        banking_products = self.dashboard_repository.get_banking_products(user_profile)
-        services = self.dashboard_repository.get_services(user_profile)
-
-        return {
-            "user_profile": user_profile,
-            "banking_products": banking_products,
-            "services": services
-        }
+        if data is None:
+            data = self.repository.fetch_user_dashboard(user_id)
+            self.cache_service.set(cache_key, data)
+        return data
