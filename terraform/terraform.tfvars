@@ -1,1 +1,6 @@
-sql_admin_password = "ChangeThisPassword123"
+resource_group_name = "example-resources"
+location = "East US"
+app_service_name = "example-app-service"
+static_site_name = "example-static-site"
+function_app_name = "example-function-app"
+logic_app_name = "example-logic-app"
