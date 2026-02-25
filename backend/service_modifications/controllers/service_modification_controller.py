@@ -1,37 +1,34 @@
-# Epic Title: PostgreSQL Integration for Service Modification Requests
+# Epic Title: FastAPI Backend for Service Modification Requests
 
-from flask import Blueprint, request, jsonify
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel, constr
 from backend.service_modifications.services.service_modification_service import ServiceModificationService
 import logging
 
-service_modification_controller = Blueprint('service_modification_controller', __name__)
+router = APIRouter()
 service = ServiceModificationService()
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-@service_modification_controller.route('/service_modification', methods=['POST'])
-def submit_service_modification():
-    data = request.json
-    logger.info(f"Received service modification request: {data}")
+class ServiceModificationRequest(BaseModel):
+    service_name: constr(min_length=1)
+    modification_details: constr(min_length=1)
+    
 
-    if not data.get('service_name') or not data.get('modification_details'):
-        return jsonify({'error': 'service_name and modification_details are required fields'}), 400
+@router.post("/service_modifications")
+async def submit_service_modification(request: ServiceModificationRequest):
+    logger.info(f"Received service modification request: {request}")
+
+    # Validate input
+    if not request.service_name or not request.modification_details:
+        raise HTTPException(status_code=400, detail="service_name and modification_details are required")
 
     try:
-        result, error = service.process_request(data)
-        if error:
-            return jsonify({'error': error}), 400
-        return jsonify({'message': 'Service modification request stored successfully'}), 200
+        result = await service.process_service_modification(request)
+        if not result['success']:
+            raise HTTPException(status_code=400, detail=result['error'])
+        return {"message": "Service modification applied successfully"}
     except Exception as e:
-        logger.error(f"Error processing service modification request: {e}")
-        return jsonify({'error': 'Internal server error'}), 500
-
-@service_modification_controller.route('/service_modification', methods=['GET'])
-def get_service_modifications():
-    try:
-        modifications = service.get_all_requests()
-        return jsonify(modifications), 200
-    except Exception as e:
-        logger.error(f"Error retrieving service modification requests: {e}")
-        return jsonify({'error': 'Internal server error'}), 500
+        logger.error(f"Backend service error: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
