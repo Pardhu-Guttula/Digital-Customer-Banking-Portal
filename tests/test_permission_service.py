@@ -1,71 +1,39 @@
 # File: tests/test_permission_service.py
+
 import unittest
-from unittest.mock import patch, MagicMock
-from flask import Flask, json
+from unittest.mock import MagicMock, patch
+from backend.access_control.repositories.permission_repository import PermissionRepository
 from backend.access_control.services.permission_service import PermissionService
-from backend.database.config import get_db
 
 class TestPermissionService(unittest.TestCase):
 
     def setUp(self):
-        self.app = Flask(__name__)
-        self.client = self.app.test_client()
-        self.app.config["TESTING"] = True
+        self.mock_db = MagicMock()
+        self.permission_service = PermissionService(self.mock_db)
 
-    @patch('backend.access_control.services.permission_service.PermissionService.assign_permission')
-    @patch('backend.database.config.get_db')
-    def test_assign_permission_to_role_success(self, mock_get_db, mock_assign_permission):
-        db_mock = MagicMock()
-        mock_get_db.return_value = iter([db_mock])
-        mock_assign_permission.return_value = None
+    def test_assign_permission_success(self):
+        self.permission_service.permission_repository.assign_permission = MagicMock()
+        data = {'role': 'admin', 'permissions': ['read', 'write']}
+        self.permission_service.assign_permission(data)
+        self.permission_service.permission_repository.assign_permission.assert_called_once_with('admin', ['read', 'write'])
 
-        data = {
-            'role_id': 1,
-            'permissions': ['read', 'write']
-        }
+    def test_assign_permission_missing_role(self):
+        data = {'permissions': ['read', 'write']}
+        with self.assertRaises(ValueError) as cm:
+            self.permission_service.assign_permission(data)
+        self.assertIn('Missing role or permissions', str(cm.exception))
 
-        response = self.client.post('/permissions', data=json.dumps(data), content_type='application/json')
+    def test_assign_permission_missing_permissions(self):
+        data = {'role': 'admin'}
+        with self.assertRaises(ValueError) as cm:
+            self.permission_service.assign_permission(data)
+        self.assertIn('Missing role or permissions', str(cm.exception))
 
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json, {"message": "Permissions assigned successfully"})
-
-    @patch('backend.access_control.services.permission_service.PermissionService.assign_permission')
-    @patch('backend.database.config.get_db')
-    def test_assign_permission_to_role_failure(self, mock_get_db, mock_assign_permission):
-        db_mock = MagicMock()
-        mock_get_db.return_value = iter([db_mock])
-        mock_assign_permission.side_effect = Exception("Failed to assign permissions")
-
-        data = {
-            'role_id': 1,
-            'permissions': ['read', 'write']
-        }
-
-        response = self.client.post('/permissions', data=json.dumps(data), content_type='application/json')
-
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json, {"error": "Failed to assign permissions"})
-
-    @patch('backend.database.config.get_db')
-    def test_assign_permission_with_invalid_data(self, mock_get_db):
-        db_mock = MagicMock()
-        mock_get_db.return_value = iter([db_mock])
-        # No data provided
-
-        response = self.client.post('/permissions', data=json.dumps({}), content_type='application/json')
-
-        self.assertEqual(response.status_code, 400)
-        self.assertIn('error', response.json)
-
-    @patch('backend.database.config.get_db')
-    def test_assign_permission_with_null_data(self, mock_get_db):
-        db_mock = MagicMock()
-        mock_get_db.return_value = iter([db_mock])
-
-        response = self.client.post('/permissions', data=None, content_type='application/json')
-
-        self.assertEqual(response.status_code, 400)
-        self.assertIn('error', response.json)
+    def test_assign_permission_empty_data(self):
+        data = {}
+        with self.assertRaises(ValueError) as cm:
+            self.permission_service.assign_permission(data)
+        self.assertIn('Missing role or permissions', str(cm.exception))
 
 if __name__ == '__main__':
     unittest.main()
