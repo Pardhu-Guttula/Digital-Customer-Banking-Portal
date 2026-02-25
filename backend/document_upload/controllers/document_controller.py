@@ -1,4 +1,4 @@
-# Epic Title: Create FastAPI Endpoint to Handle Document Uploads
+# Epic Title: Store Uploaded Documents in PostgreSQL
 
 from fastapi import APIRouter, UploadFile, File, HTTPException, status
 from backend.document_upload.services.document_service import DocumentService
