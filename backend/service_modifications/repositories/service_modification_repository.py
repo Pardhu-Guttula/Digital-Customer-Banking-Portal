@@ -1,4 +1,4 @@
-# Epic Title: Redis Caching for Service Modification Workflows
+# Epic Title: PostgreSQL Integration for Service Modification Requests
 
 import psycopg2
 import logging
