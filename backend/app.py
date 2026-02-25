@@ -1,20 +1,19 @@
-# Epic Title: Backend User Authentication with Multi-Factor Authentication
+# Epic Title: User Authentication and Session Management for Secure Login
 
-from fastapi import FastAPI
-from backend.authentication.controllers.auth_controller import router as auth_router
+from flask import Flask
+from backend.authentication.controllers.login_controller import login_controller
 import logging
 
-app = FastAPI()
-app.include_router(auth_router, prefix='/auth')
+app = Flask(__name__)
+app.register_blueprint(login_controller, url_prefix='/auth')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-@app.get('/')
-async def home():
-    return {"message": "Welcome to the Backend User Authentication System"}
+@app.route('/')
+def home():
+    return "Welcome to User Authentication System"
 
 if __name__ == '__main__':
-    logger.info("Starting the Backend User Authentication System...")
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    logger.info("Starting the User Authentication System...")
+    app.run(debug=True)
