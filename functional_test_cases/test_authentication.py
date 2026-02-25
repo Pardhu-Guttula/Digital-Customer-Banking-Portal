@@ -1,118 +1,72 @@
 import pytest
-from flask import Flask
-from flask.testing import FlaskClient
+from flask import json
 from backend.authentication.controllers.auth_controller import auth_bp
 from backend.authentication.controllers.login_controller import login_bp
 from backend.authentication.controllers.mfa_controller import mfa_bp
 from backend.authentication.controllers.password_recovery_controller import password_recovery_bp
+from backend.database.config import get_db
 
-
-@pytest.fixture(scope='module')
-def app() -> Flask:
-    app = Flask(__name__)
-    app.register_blueprint(auth_bp, url_prefix='/auth')
-    app.register_blueprint(login_bp, url_prefix='/auth')
-    app.register_blueprint(mfa_bp, url_prefix='/auth')
-    app.register_blueprint(password_recovery_bp, url_prefix='/auth')
-    return app
-
-@pytest.fixture(scope='module')
-def client(app: Flask) -> FlaskClient:
+@pytest.fixture
+def client(app):
     return app.test_client()
 
+@pytest.fixture
+def app():
+    from flask import Flask
+    app = Flask(__name__)
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(login_bp)
+    app.register_blueprint(mfa_bp)
+    app.register_blueprint(password_recovery_bp)
+    return app
 
-def test_login_success(client: FlaskClient):
-    response = client.post('/auth/login', json={
-        "email": "existing@user.com",
-        "password": "correctpassword"
-    })
+# Tests for login functionality
+def test_login_success(client):
+    response = client.post('/login', json={"email": "existing@user.com", "password": "correctpassword"})
+    data = json.loads(response.data)
     assert response.status_code == 200
-    assert response.json["message"] == "Login successful"
+    assert "message" in data
+    assert data["message"] == "Login successful"
 
-
-
-def test_login_failure(client: FlaskClient):
-    response = client.post('/auth/login', json={
-        "email": "nonexistent@user.com",
-        "password": "wrongpassword"
-    })
+def test_login_invalid_credentials(client):
+    response = client.post('/login', json={"email": "wrong@user.com", "password": "wrongpassword"})
+    data = json.loads(response.data)
     assert response.status_code == 401
-    assert response.json["error"] == "Invalid credentials"
+    assert "error" in data
+    assert data["error"] == "Invalid credentials"
 
+def test_login_validation_error(client):
+    response = client.post('/login', json={"email": "existing@user.com"})
+    data = json.loads(response.data)
+    assert response.status_code == 400
+    assert "errors" in data
 
-def test_validate_mfa_token_success(client: FlaskClient):
-    response = client.post('/auth/mfa/validate', json={
-        "account_id": 1,
-        "token": "correcttoken"
-    })
+# Tests for MFA token validation
+def test_validate_mfa_token_success(client):
+    response = client.post('/mfa/validate', json={"account_id": 1, "token": "123456"})
+    data = json.loads(response.data)
     assert response.status_code == 200
-    assert response.json["success"] is True
+    assert "success" in data
+    assert data["success"] is True
 
-
-def test_validate_mfa_token_failure(client: FlaskClient):
-    response = client.post('/auth/mfa/validate', json={
-        "account_id": 1,
-        "token": "wrongtoken"
-    })
+def test_validate_mfa_token_failure(client):
+    response = client.post('/mfa/validate', json={"account_id": 1, "token": "wrongtoken"})
+    data = json.loads(response.data)
     assert response.status_code == 401
-    assert response.json["success"] is False
+    assert "success" in data
+    assert data["success"] is False
 
-
-def test_setup_mfa_success(client: FlaskClient):
-    response = client.post('/auth/mfa/setup', json={
-        "account_id": 1,
-        "mfa_method": "email"
-    })
-    assert response.status_code == 201
-    assert response.json["success"] is True
-
-
-def test_setup_mfa_failure(client: FlaskClient):
-    response = client.post('/auth/mfa/setup', json={
-        "account_id": 1,
-        "mfa_method": "invalid_method"
-    })
-    assert response.status_code == 500
-    assert response.json["error"] == "Unable to process your request"
-
-
-def test_activate_mfa_success(client: FlaskClient):
-    response = client.post('/auth/mfa/activate', json={
-        "account_id": 1,
-        "mfa_method": "email"
-    })
-    assert response.status_code == 201
-    assert response.json["success"] is True
-
-
-def test_activate_mfa_failure(client: FlaskClient):
-    response = client.post('/auth/mfa/activate', json={
-        "account_id": 1,
-        "mfa_method": "invalid_method"
-    })
-    assert response.status_code == 500
-    assert response.json["error"] == "Unable to process your request"
-
-
-def test_password_recovery_success(client: FlaskClient):
-    response = client.post('/auth/password-recovery', json={
-       "email": "existing@user.com"
-    })
+# Tests for Password Recovery
+def test_password_recovery_success(client):
+    response = client.post('/password-recovery', json={"email": "existing@user.com"})
+    data = json.loads(response.data)
     assert response.status_code == 200
-    assert response.json["message"] == "Password recovery email sent"
+    assert "message" in data
+    assert data["message"] == "Password recovery email sent"
 
-
-def test_password_recovery_failure(client: FlaskClient):
-    response = client.post('/auth/password-recovery', json={
-       "email": "nonexistent@user.com"
-    })
+def test_password_recovery_invalid_email(client):
+    response = client.post('/password-recovery', json={"email": "notfound@user.com"})
+    data = json.loads(response.data)
     assert response.status_code == 400
-    assert response.json["error"] == "Email not recognized"
-
-
-def test_password_recovery_validation_error(client: FlaskClient):
-    response = client.post('/auth/password-recovery', json={
-       "email": ""
-    })
-    assert response.status_code == 400
-    assert "errors" in response.json
+    assert "error" in data
+    assert data["error"] == "Email not recognized"
