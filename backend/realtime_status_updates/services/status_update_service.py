@@ -1,4 +1,4 @@
-# Epic Title: Real-time Status Updates Using React and Redis
+# Epic Title: Backend API Development with FastAPI
 
 from backend.realtime_status_updates.repositories.status_update_repository import StatusUpdateRepository
 from backend.integration.redis.redis_cache import RedisCache
@@ -11,12 +11,15 @@ class StatusUpdateService:
 
     def get_status_from_cache(self, request_id: int):
         logger = logging.getLogger(__name__)
-        logger.info(f"Trying to get status from cache for request ID: {request_id}")
-        return self.cache.retrieve_data(request_id)
+        status = self.cache.retrieve_data(request_id)
+        if status:
+            logger.info(f"Status retrieved from cache for request ID: {request_id}")
+        return status
 
     def get_status_from_db(self, request_id: int):
         logger = logging.getLogger(__name__)
-        logger.info(f"Trying to get status from database for request ID: {request_id}")
         status = self.repository.fetch_status(request_id)
-        self.cache.cache_data(request_id, status)
+        if status:
+            self.cache.cache_data(request_id, status)
+            logger.info(f"Status retrieved from DB and cached for request ID: {request_id}")
         return status
