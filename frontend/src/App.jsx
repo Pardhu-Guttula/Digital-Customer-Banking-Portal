@@ -1,6 +1,6 @@
 import React from "react";
-import ProductsForYou from "./components/ProductsForYou";
+import BankingSelfServicePortalDesign from "./components/BankingSelfServicePortalDesign";
 
 export default function App() {
-  return <ProductsForYou />;
+  return <BankingSelfServicePortalDesign />;
 }

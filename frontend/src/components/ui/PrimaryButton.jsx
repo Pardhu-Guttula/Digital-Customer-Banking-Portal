@@ -1,19 +1,19 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-export default function PrimaryButton({ label, onClick = () => {}, ariaLabel }) {
-  const intl = useIntl();
+function noop() {}
 
-  const resolvedLabel = label || intl.formatMessage({ id: "common.continue" });
+export default function PrimaryButton({ children, disabled, onClick = noop }) {
+  useIntl();
 
   return (
     <button
-      type="button"
-      aria-label={ariaLabel || resolvedLabel}
+      type="submit"
+      disabled={disabled}
       onClick={onClick}
-      className="inline-flex h-[34px] w-full items-center justify-center rounded-[8px] bg-[#030213] text-center text-[14px] font-medium leading-[20px] tracking-[-0.1504px] text-white transition-colors hover:bg-[#0b0d1a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#030213]/30"
+      className="h-11 w-full rounded-lg bg-[#030213] text-sm font-medium leading-5 tracking-[-0.1504px] text-white shadow-sm transition hover:bg-[#07062a] disabled:cursor-not-allowed disabled:opacity-60"
     >
-      {resolvedLabel}
+      {children}
     </button>
   );
 }
