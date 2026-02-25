@@ -1,4 +1,4 @@
-# Epic Title: Develop a Feature in React for Users to Access Interaction History
+# Epic Title: Store User Interaction Data in PostgreSQL
 
 from flask import Flask
 from backend.interaction_history.controllers.interaction_controller import interaction_controller
