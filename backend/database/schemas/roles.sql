@@ -1,4 +1,4 @@
-# Epic Title: Enforce Role-Based Access Control Using FastAPI
+# Epic Title: Implement Role-Based Access Controls for User Authorization
 
 CREATE TABLE roles (
     role_id SERIAL PRIMARY KEY,
