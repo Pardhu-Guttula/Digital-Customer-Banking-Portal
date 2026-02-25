@@ -1,4 +1,4 @@
-# Epic Title: Test Portal Usability on Various Screen Sizes
+# Epic Title: Develop Responsive Design for the Portal Using React
 
 from flask import Flask
 import logging
@@ -13,5 +13,5 @@ def home():
     return "Welcome to the Responsive Portal"
 
 if __name__ == '__main__':
-    logger.info("Starting the Portal Usability Testing System...")
+    logger.info("Starting the Responsive Portal System...")
     app.run(debug=True)
