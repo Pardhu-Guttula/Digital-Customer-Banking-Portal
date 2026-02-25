@@ -1,4 +1,4 @@
-# Epic Title: Secure and Efficient Data Storage with PostgreSQL
+# Epic Title: Backend User Authentication with Multi-Factor Authentication
 
 from typing import Optional
 from werkzeug.security import check_password_hash
