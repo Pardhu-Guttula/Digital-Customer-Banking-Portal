@@ -1,4 +1,6 @@
-Flask==2.1.0
-PyJWT==2.3.0
-mysql-connector-python==8.0.27
-Werkzeug==2.1.0
+FastAPI==0.68.0
+psycopg2-binary==2.9.1
+cryptography==3.4.7
+bcrypt==3.2.0
+pyjwt==2.1.0
+uvicorn==0.15.0
