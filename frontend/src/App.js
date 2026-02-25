@@ -1,12 +1,12 @@
-# Epic Title: Develop Document Upload Capability Using React
+# Epic Title: Develop a Feature in React for Users to Access Interaction History
 
 import React from 'react';
-import DocumentUpload from './components/DocumentUpload';
+import InteractionHistory from './components/InteractionHistory';
 
 function App() {
   return (
     <div className="App">
-      <DocumentUpload />
+      <InteractionHistory />
     </div>
   );
 }
