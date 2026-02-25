@@ -1,30 +1,33 @@
-# Epic Title: Backend User Authentication with Multi-Factor Authentication
+# Epic Title: Develop Secure Authentication Mechanisms Using FastAPI
 
-from fastapi import APIRouter, HTTPException, Depends
-from pydantic import BaseModel
+from fastapi import APIRouter, Depends, HTTPException, status
 from backend.authentication.services.auth_service import AuthService
 from backend.authentication.models.user import User
+from backend.authentication.dependencies import get_current_user
 import logging
 
 router = APIRouter()
-auth_service = AuthService()
+service = AuthService()
 
-logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-class AuthRequest(BaseModel):
-    email: str
-    password: str
-    otp: str
+@router.post("/login")
+async def login(user: User):
+    logger.info(f"User attempting to login: {user.email}")
+    try:
+        token = service.login(user)
+        return {"message": "Login successful", "token": token}
+    except ValueError as e:
+        logger.error(f"Login failed: {e}")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(e))
 
-@router.post('/authenticate')
-async def authenticate(auth_request: AuthRequest):
-    logger.info("Authentication attempt with provided credentials.")
-    user = auth_service.authenticate(auth_request.email, auth_request.password, auth_request.otp)
-    if user:
-        token = auth_service.generate_session_token(user)
-        logger.info(f"User {auth_request.email} authenticated successfully.")
-        return {"message": "Authentication successful", "token": token}
-    else:
-        logger.warning(f"Invalid authentication attempt for email {auth_request.email}.")
-        raise HTTPException(status_code=401, detail="Invalid credentials or OTP")
+@router.post("/verify-otp")
+async def verify_otp(otp: str, current_user: dict = Depends(get_current_user)):
+    logger.info(f"User {current_user['email']} attempting to verify OTP")
+    try:
+        service.verify_otp(current_user['email'], otp)
+        return {"message": "OTP verification successful"}
+    except ValueError as e:
+        logger.error(f"OTP verification failed: {e}")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
