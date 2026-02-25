@@ -1,88 +1,68 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
-import AuthShell from "./layout/AuthShell";
+import { User } from "lucide-react";
 import BrandHeader from "./layout/BrandHeader";
-import SecurityCaption from "./layout/SecurityCaption";
+import SecurityNote from "./layout/SecurityNote";
 import SignInCard from "./ui/SignInCard";
 
-const imgIcon = "https://www.figma.com/api/mcp/asset/227f9705-cf43-40cd-ae14-1f5942ae9581";
-const imgIcon1 = "https://www.figma.com/api/mcp/asset/8eb86048-daa9-4639-9340-289481bbd4cb";
+const imgIcon = "https://www.figma.com/api/mcp/asset/b1febb15-78c6-44e2-80ba-3ce5edd2b922";
+const imgIcon1 = "https://www.figma.com/api/mcp/asset/ea22b803-388a-4156-8862-7d96d7fab9ef";
 
 export default function BankingSelfServicePortalDesign({
-  title,
-  subtitle,
-  securityText,
-
-  usernameValue: usernameValueProp,
-  onUsernameChange = () => {},
-  passwordValue: passwordValueProp,
-  onPasswordChange = () => {},
-  rememberMeChecked: rememberMeCheckedProp,
-  onRememberMeChange = () => {},
-
-  onForgotPassword = () => {},
+  initialUsernameOrEmail = "john.doe@email.com",
+  initialPassword = "",
+  initialRememberMe = false,
   onSubmit = () => {},
-
+  onForgotPassword = () => {},
+  onBrandClick = () => {},
+  forgotPasswordHref = "#",
   loading = false,
-  error = "",
-
-  useRemoteBrandIcon = false,
-  useRemoteUserIcon = false,
 }) {
   const intl = useIntl();
 
-  const resolvedTitle =
-    title ?? intl.formatMessage({ id: "bankingSelfServicePortalDesign.title" });
-  const resolvedSubtitle =
-    subtitle ?? intl.formatMessage({ id: "bankingSelfServicePortalDesign.subtitle" });
-  const resolvedSecurityText =
-    securityText ?? intl.formatMessage({ id: "bankingSelfServicePortalDesign.securityText" });
+  const [usernameOrEmail, setUsernameOrEmail] = useState(initialUsernameOrEmail);
+  const [password, setPassword] = useState(initialPassword);
+  const [rememberMe, setRememberMe] = useState(initialRememberMe);
 
-  const [usernameValueState, setUsernameValueState] = useState("john.doe@email.com");
-  const [passwordValueState, setPasswordValueState] = useState("");
-  const [rememberMeCheckedState, setRememberMeCheckedState] = useState(false);
-
-  const usernameValue = usernameValueProp !== undefined ? usernameValueProp : usernameValueState;
-  const passwordValue = passwordValueProp !== undefined ? passwordValueProp : passwordValueState;
-  const rememberMeChecked =
-    rememberMeCheckedProp !== undefined ? rememberMeCheckedProp : rememberMeCheckedState;
+  const backgroundStyle = useMemo(
+    () => ({
+      backgroundImage:
+        "linear-gradient(145.03869956590015deg, rgb(239, 246, 255) 0%, rgb(255, 255, 255) 50%, rgb(239, 246, 255) 100%)",
+    }),
+    []
+  );
 
   return (
-    <AuthShell>
-      <div className="w-full max-w-[448px] flex flex-col gap-6 items-stretch">
-        <BrandHeader
-          title={resolvedTitle}
-          subtitle={resolvedSubtitle}
-          useRemoteIcon={useRemoteBrandIcon}
-          remoteIconSrc={imgIcon}
-        />
+    <main className="min-h-screen w-full" style={backgroundStyle}>
+      <section className="min-h-screen w-full flex items-center justify-center px-4 py-10">
+        <div className="w-full max-w-[448px] flex flex-col gap-6">
+          <BrandHeader
+            title={intl.formatMessage({ id: "brandHeader.title" })}
+            subtitle={intl.formatMessage({ id: "brandHeader.subtitle" })}
+            onBrandClick={onBrandClick}
+          />
 
-        <SignInCard
-          usernameValue={usernameValue}
-          onUsernameChange={(next) => {
-            if (usernameValueProp === undefined) setUsernameValueState(next);
-            onUsernameChange(next);
-          }}
-          passwordValue={passwordValue}
-          onPasswordChange={(next) => {
-            if (passwordValueProp === undefined) setPasswordValueState(next);
-            onPasswordChange(next);
-          }}
-          rememberMeChecked={rememberMeChecked}
-          onRememberMeChange={(next) => {
-            if (rememberMeCheckedProp === undefined) setRememberMeCheckedState(next);
-            onRememberMeChange(next);
-          }}
-          onForgotPassword={onForgotPassword}
-          onSubmit={onSubmit}
-          loading={loading}
-          error={error}
-          useRemoteUserIcon={useRemoteUserIcon}
-          remoteUserIconSrc={imgIcon1}
-        />
+          <SignInCard
+            usernameOrEmail={usernameOrEmail}
+            password={password}
+            rememberMe={rememberMe}
+            onUsernameOrEmailChange={setUsernameOrEmail}
+            onPasswordChange={setPassword}
+            onRememberMeChange={setRememberMe}
+            onForgotPassword={onForgotPassword}
+            forgotPasswordHref={forgotPasswordHref}
+            loading={loading}
+            onSubmit={(payload) => onSubmit(payload)}
+            headerIcon={User}
+          />
 
-        <SecurityCaption text={resolvedSecurityText} />
-      </div>
-    </AuthShell>
+          <SecurityNote text={intl.formatMessage({ id: "securityNote.text" })} />
+        </div>
+      </section>
+
+      {/* Asset constants preserved from MCP output (not used directly after icon conversion) */}
+      <img src={imgIcon} alt="" className="hidden" />
+      <img src={imgIcon1} alt="" className="hidden" />
+    </main>
   );
 }

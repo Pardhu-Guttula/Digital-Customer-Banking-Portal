@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import cx from "../utils/cx";
 
 export default function LabeledInput({
   id,
@@ -18,24 +17,20 @@ export default function LabeledInput({
     <div className="flex flex-col gap-2 w-full">
       <label
         htmlFor={id}
-        className="text-[14px] leading-[14px] font-medium text-[#0a0a0a] tracking-[-0.1504px]"
+        className="text-[14px] leading-[14px] font-medium tracking-[-0.1504px] text-[#0A0A0A]"
       >
-        {label}
+        {label ?? intl.formatMessage({ id: "labeledInput.label" })}
       </label>
+
       <input
         id={id}
         type={type}
         value={value}
-        placeholder={placeholder}
+        placeholder={placeholder ?? intl.formatMessage({ id: "labeledInput.placeholder" })}
+        onChange={(e) => onChange(e.target.value)}
         autoComplete={autoComplete}
         inputMode={inputMode}
-        onChange={(e) => onChange(e.target.value)}
-        className={cx(
-          "h-11 w-full rounded-lg bg-[#f3f3f5] px-3 py-1 text-[14px] tracking-[-0.1504px]",
-          "text-[#0a0a0a] placeholder:text-[#717182]",
-          "border border-transparent focus:border-[#155dfc]/30 focus:ring-2 focus:ring-[#155dfc]/20 outline-none"
-        )}
-        aria-label={intl.formatMessage({ id: "labeledInput.ariaLabel" })}
+        className="h-11 w-full rounded-lg bg-[#F3F3F5] px-3 py-1 text-[14px] tracking-[-0.1504px] text-[#0A0A0A] placeholder:text-[#717182] outline-none ring-1 ring-transparent focus:ring-[#155DFC]/35"
       />
     </div>
   );

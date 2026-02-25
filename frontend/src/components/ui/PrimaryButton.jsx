@@ -1,30 +1,17 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import cx from "../utils/cx";
 
-export default function PrimaryButton({
-  children,
-  onClick = () => {},
-  disabled = false,
-  loading = false,
-  type = "submit",
-}) {
+export default function PrimaryButton({ children, disabled, onClick = () => {} }) {
   const intl = useIntl();
 
   return (
     <button
-      type={type}
-      disabled={disabled || loading}
-      onClick={onClick}
-      className={cx(
-        "h-11 w-full rounded-lg bg-[#030213] text-white",
-        "text-[14px] leading-5 font-medium tracking-[-0.1504px]",
-        "hover:bg-[#05051a] active:bg-black",
-        "disabled:opacity-60 disabled:cursor-not-allowed",
-        "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#030213]/30"
-      )}
+      type="submit"
+      disabled={disabled}
+      onClick={(e) => onClick(e)}
+      className="h-11 w-full rounded-lg bg-[#030213] text-white text-[14px] leading-5 font-medium tracking-[-0.1504px] hover:bg-[#0A0A1A] active:bg-[#00010A] disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[#030213]/35 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
     >
-      {loading ? intl.formatMessage({ id: "common.continuing" }) : children}
+      {children ?? intl.formatMessage({ id: "primaryButton.label" })}
     </button>
   );
 }
