@@ -1,4 +1,4 @@
-# Epic Title: Redis Caching for Account Opening Requests
+# Epic Title: PostgreSQL Data Storage for Account Opening Requests
 
 from flask import Flask
 from backend.account_opening.controllers.account_opening_controller import account_opening_controller
