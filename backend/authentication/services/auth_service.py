@@ -1,4 +1,4 @@
-# Epic Title: Backend User Authentication with Multi-Factor Authentication
+# Epic Title: Secure and Efficient Data Storage with PostgreSQL
 
 from typing import Optional
 import jwt
