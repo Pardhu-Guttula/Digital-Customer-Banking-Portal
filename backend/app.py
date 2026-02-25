@@ -1,22 +1,19 @@
-# Epic Title: Real-time Status Updates Using React and Redis
+# Epic Title: PostgreSQL Integration for Service Modification Requests
 
 from flask import Flask
-from flask_socketio import SocketIO
-from backend.realtime_status_updates.controllers.status_update_controller import status_update_controller
+from backend.service_modifications.controllers.service_modification_controller import service_modification_controller
 import logging
 
 app = Flask(__name__)
-app.register_blueprint(status_update_controller, url_prefix='/api')
-
-socketio = SocketIO(app, cors_allowed_origins="*")
+app.register_blueprint(service_modification_controller, url_prefix='/api')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 @app.route('/')
 def home():
-    return "Welcome to the Real-time Status Update System"
+    return "Welcome to the Service Modification System"
 
 if __name__ == '__main__':
-    logger.info("Starting the Real-time Status Update System...")
-    socketio.run(app, debug=True)
+    logger.info("Starting the Service Modification System...")
+    app.run(debug=True)
