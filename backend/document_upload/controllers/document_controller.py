@@ -1,4 +1,4 @@
-# Epic Title: Develop Document Upload Capability Using React
+# Epic Title: Create FastAPI Endpoint to Handle Document Uploads
 
 from fastapi import APIRouter, UploadFile, File, HTTPException, status
 from backend.document_upload.services.document_service import DocumentService
@@ -14,11 +14,13 @@ logger = logging.getLogger(__name__)
 async def upload_document(file: UploadFile = File(...)):
     logger.info("Received document to upload")
 
-    if file.content_type not in ["application/pdf", "image/jpeg", "image/png"]:
+    # Validate file type
+    allowed_file_types = ["application/pdf", "image/jpeg", "image/png"]
+    if file.content_type not in allowed_file_types:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid file type")
 
     try:
-        service.save_document(file)
+        await service.save_document(file)
         return {"message": "Document uploaded successfully"}
     except Exception as e:
         logger.error(f"Error uploading document: {e}")
