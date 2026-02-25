@@ -1,7 +1,7 @@
-# Epic Title: Document Upload
+# Epic Title: Create FastAPI Endpoint to Handle Document Uploads
 
 CREATE TABLE documents (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    filename VARCHAR(255) UNIQUE NOT NULL,
-    path VARCHAR(255) NOT NULL
+    id SERIAL PRIMARY KEY,
+    filename VARCHAR(255) NOT NULL,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
