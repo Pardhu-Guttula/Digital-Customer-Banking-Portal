@@ -1,13 +1,11 @@
-# Epic Title: Redis Caching for Service Modification Workflows
+# Epic Title: PostgreSQL Integration for Service Modification Requests
 
 from backend.service_modifications.repositories.service_modification_repository import ServiceModificationRepository
-from backend.integration.redis.redis_cache import RedisCache
 import logging
 
 class ServiceModificationService:
     def __init__(self):
         self.repository = ServiceModificationRepository()
-        self.cache = RedisCache()
 
     def process_request(self, data: dict):
         logger = logging.getLogger(__name__)
@@ -18,18 +16,12 @@ class ServiceModificationService:
             logger.error("Data integrity validation failed")
             return None, "Invalid request data"
 
-        # Cache intermediate data
-        self.cache.cache_data(data)
-
         # Attempt to store in PostgreSQL
         try:
             self.repository.store_request(data)
         except Exception as e:
             logger.error(f"Exception during data storage: {e}")
             return None, "Failed to store service modification request"
-
-        # Evict cache after storing it in the database to free the resources
-        self.cache.evict_cache(data['service_name'])
 
         logger.info("Successfully processed service modification request")
         return "success", None
