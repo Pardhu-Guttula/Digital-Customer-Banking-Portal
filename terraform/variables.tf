@@ -5,27 +5,12 @@ variable "resource_group_name" {
 }
 
 variable "location" {
-  description = "The Azure location where resources will be deployed"
+  description = "The Azure region"
   type        = string
-  default     = "East US"
+  default     = "West Europe"
 }
 
-variable "app_service_name" {
-  description = "The name of the App Service"
-  type        = string
-}
-
-variable "static_site_name" {
-  description = "The name of the Static Site"
-  type        = string
-}
-
-variable "function_app_name" {
-  description = "The name of the Function App"
-  type        = string
-}
-
-variable "logic_app_name" {
-  description = "The name of the Logic App"
+variable "sql_admin_password" {
+  description = "The password for the SQL server admin user"
   type        = string
 }
