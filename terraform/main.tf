@@ -1,74 +1,67 @@
 provider "azurerm" {
   features {}
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 4.56.0"
+    }
+  }
 }
 
 resource "azurerm_resource_group" "example" {
   name     = "example-resources"
-  location = "West Europe"
+  location = "East US"
 }
 
-resource "azurerm_app_service_plan" "example" {
-  name                = "example-appserviceplan"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
-  sku {
-    tier = "Standard"
-    size = "S1"
-  }
-}
-
-resource "azurerm_app_service" "frontend" {
-  name                = "example-frontend"
+resource "azurerm_app_service" "web" {
+  name                = "example-app-service"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   app_service_plan_id = azurerm_app_service_plan.example.id
 }
 
-resource "azurerm_sql_server" "example" {
-  name                         = "example-sqlserver"
-  resource_group_name          = azurerm_resource_group.example.name
-  location                     = azurerm_resource_group.example.location
-  version                      = "12.0"
-  administrator_login          = "sqladmin"
-  administrator_login_password = var.sql_admin_password
-}
-
-resource "azurerm_sql_database" "example" {
-  name                = "example-sqldb"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
-  server_name         = azurerm_sql_server.example.name
-  edition             = "Basic"
-  requested_service_objective_name = "Basic"
-}
-
-resource "azurerm_key_vault" "example" {
-  name                = "example-keyvault"
+resource "azurerm_app_service_plan" "example" {
+  name                = "example-app-service-plan"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
-  tenant_id           = data.azurerm_client_config.current.tenant_id
-  sku_name            = "standard"
+  sku_name            = "B1"
 }
 
-resource "azurerm_monitor_diagnostic_setting" "example" {
-  name                        = "example-diagnosticsetting"
-  target_resource_id          = azurerm_app_service.frontend.id
-  log_analytics_workspace_id  = data.azurerm_log_analytics_workspace.example.id
-  enabled_log {
-    category    = "AppServiceHTTPLogs"
-    enabled     = true
-    retention_policy_days = null
-  }
-  metric {
-    category    = "AllMetrics"
-    enabled     = true
-    retention_policy_days = null
-  }
+resource "azurerm_static_site" "example" {
+  name                = "example-static-site"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
 }
 
-data "azurerm_log_analytics_workspace" "example" {
-  name                = "example-workspace"
+resource "azurerm_function_app" "example" {
+  name                       = "example-function-app"
+  location                   = azurerm_resource_group.example.location
+  resource_group_name        = azurerm_resource_group.example.name
+  app_service_plan_id        = azurerm_app_service_plan.example.id
+  storage_account_name       = azurerm_storage_account.example.name
+  storage_account_access_key = azurerm_storage_account.example.primary_access_key
+}
+
+resource "azurerm_storage_account" "example" {
+  name                     = "examplestorageaccount"
+  resource_group_name      = azurerm_resource_group.example.name
+  location                 = azurerm_resource_group.example.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
+resource "azurerm_logic_app_workflow" "example" {
+  name                = "example-logic-app"
+  location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 }
 
-data "azurerm_client_config" "current" {}
+resource "azurerm_application" "aad" {
+  name          = "example-app"
+  application_id = "00000000-0000-0000-0000-000000000000"
+}
+
+resource "azurerm_application" "aad_b2c" {
+  name          = "example-app-b2c"
+  application_id = "00000000-0000-0000-0000-000000000000"
+}
