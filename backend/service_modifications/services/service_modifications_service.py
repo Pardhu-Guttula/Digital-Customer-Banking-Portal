@@ -1,25 +1,32 @@
-# Epic Title: Implement FastAPI Backend for Handling Service Modification Requests
+# Epic Title: Integrate PostgreSQL for Storing Service Modification Request Details
 
 from backend.service_modifications.repositories.service_modifications_repository import ServiceModificationsRepository
 from backend.service_modifications.models.service_modification_request import ServiceModificationRequest
-import asyncio
 import logging
 
 class ServiceModificationsService:
     def __init__(self):
         self.repository = ServiceModificationsRepository()
 
-    async def process_request(self, request: ServiceModificationRequest):
-        logger = logging.getLogger(__name__)
-        if not self.validate_request(request):
-            logger.error("Validation failed for the service modification request")
+    def process_save_request(self, request: ServiceModificationRequest):
+        try:
+            self.repository.save_modification_request(request)
+        except ValueError as e:
+            logger = logging.getLogger(__name__)
+            logger.error(f"Validation failed for the service modification request: {e}")
             raise ValueError("Invalid request data")
-        
-        # Simulate asynchronous processing
-        await asyncio.sleep(1)
-        
-        self.repository.save_modification(request.dict())
-        logger.info("Processed the service modification request successfully")
+        except Exception as e:
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error processing request: {e}")
+            raise
+
+    def process_retrieve_request(self):
+        try:
+            return self.repository.retrieve_modification_requests()
+        except Exception as e:
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error processing retrieval: {e}")
+            raise
 
     def validate_request(self, request: ServiceModificationRequest) -> bool:
         if not request.user_id or not request.service_type or not request.modification_details:
