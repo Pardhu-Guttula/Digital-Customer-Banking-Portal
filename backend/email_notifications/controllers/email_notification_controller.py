@@ -1,4 +1,4 @@
-# Epic Title: FastAPI Email Notification Service
+# Epic Title: Log Email Communication in PostgreSQL
 
 from fastapi import APIRouter, HTTPException
 from backend.email_notifications.services.email_service import EmailNotificationService
