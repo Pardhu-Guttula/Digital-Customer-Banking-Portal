@@ -1,4 +1,4 @@
-# Epic Title: Backend API Development with FastAPI
+# Epic Title: Real-time Status Updates Using React and Redis
 
 import redis
 import logging
