@@ -1,4 +1,4 @@
-# Epic Title: FastAPI Email Notification Service
+# Epic Title: Log Email Communication in PostgreSQL
 
 import smtplib
 import logging
@@ -33,8 +33,9 @@ class EmailNotificationService:
                 server.login(self.sender_email, self.sender_password)
                 server.sendmail(self.sender_email, user_email, message.as_string())
             logger.info(f"Email sent successfully to {user_email}")
-            self.repository.log_email_sent(request_id, status, user_email)
+            self.repository.log_email_sent(request_id, status, user_email, "sent")
             return True
         except Exception as e:
             logger.error(f"Failed to send email: {e}")
+            self.repository.log_email_sent(request_id, status, user_email, "failed")
             return False
