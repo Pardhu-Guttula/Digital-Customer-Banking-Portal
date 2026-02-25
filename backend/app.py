@@ -1,20 +1,20 @@
-# Epic Title: Store Uploaded Documents in PostgreSQL
+# Epic Title: Secure Role-Based Data Segregation in PostgreSQL
 
 from fastapi import FastAPI
-from backend.document_upload.controllers.document_controller import router as document_router
+from backend.rbac.controllers.data_controller import router as data_router
 import logging
 
 app = FastAPI()
-app.include_router(document_router, prefix='/api')
+app.include_router(data_router, prefix='/api')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 @app.get('/')
 async def home():
-    return {"message": "Welcome to the Document Upload Service"}
+    return {"message": "Welcome to the Secure Role-Based Data Segregation Service"}
 
 if __name__ == '__main__':
     import uvicorn
-    logger.info("Starting the Document Upload Service...")
+    logger.info("Starting the Secure Role-Based Data Segregation Service...")
     uvicorn.run(app, host='0.0.0.0', port=8000)
