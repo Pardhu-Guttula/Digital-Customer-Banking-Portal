@@ -1,29 +1,21 @@
-# Epic Title: Implement role-based access control for user authorization
+# Epic Title: Enforce Role-Based Access Control Using FastAPI
 
-from flask import Blueprint, request, jsonify
-from backend.access_control.services.user_service import UserService
-from backend.database.config import get_db
+from fastapi import APIRouter, Depends, HTTPException, status
+from backend.access_control.services.role_service import RoleService
+from backend.access_control.dependencies import get_current_user
+import logging
 
-user_bp = Blueprint('user', __name__)
+router = APIRouter()
+service = RoleService()
 
-@user_bp.route('/users/<user_id>/role', methods=['POST'])
-def assign_role_to_user(user_id):
-    db = next(get_db())
-    data = request.get_json()
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-    user_service = UserService(db)
-    
+@router.get("/user/data")
+async def get_user_data(current_user: dict = Depends(get_current_user)):
     try:
-        user_service.assign_role(user_id, data)
-        return jsonify({"message": "Role assigned to user successfully"}), 200
+        data = service.get_user_data(current_user['role'])
+        return data
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
-
-@user_bp.route('/users/<user_id>/permissions', methods=['GET'])
-def get_user_permissions(user_id):
-    db = next(get_db())
-
-    user_service = UserService(db)
-    
-    permissions = user_service.get_user_permissions(user_id)
-    return jsonify({"permissions": permissions}), 200
+        logger.error(f"Error retrieving user data: {e}")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error")
