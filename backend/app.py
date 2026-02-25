@@ -1,20 +1,19 @@
-# Epic Title: Save Incomplete Applications
+# Epic Title: Develop a Feature in React for Users to Access Interaction History
 
-from fastapi import FastAPI
-from backend.incomplete_applications.controllers.application_controller import router as application_router
+from flask import Flask
+from backend.interaction_history.controllers.interaction_controller import interaction_controller
 import logging
 
-app = FastAPI()
-app.include_router(application_router, prefix='/api')
+app = Flask(__name__)
+app.register_blueprint(interaction_controller, url_prefix='/api')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-@app.get('/')
-async def home():
-    return {"message": "Welcome to the Incomplete Application Service"}
+@app.route('/')
+def home():
+    return "Welcome to the User Interaction Service"
 
 if __name__ == '__main__':
-    import uvicorn
-    logger.info("Starting the Incomplete Application Service...")
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+    logger.info("Starting the User Interaction Service...")
+    app.run(debug=True)
