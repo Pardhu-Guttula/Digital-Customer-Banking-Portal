@@ -1,20 +1,20 @@
-# Epic Title: Log Email Communication in PostgreSQL
+# Epic Title: Resume Incomplete Applications
 
 from fastapi import FastAPI
-from backend.email_notifications.controllers.email_notification_controller import router as email_notification_router
+from backend.incomplete_applications.controllers.application_controller import router as application_router
 import logging
 
 app = FastAPI()
-app.include_router(email_notification_router, prefix='/api')
+app.include_router(application_router, prefix='/api')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 @app.get('/')
 async def home():
-    return {"message": "Welcome to the Email Notification Service"}
+    return {"message": "Welcome to the Incomplete Application Service"}
 
 if __name__ == '__main__':
     import uvicorn
-    logger.info("Starting the Email Notification Service...")
+    logger.info("Starting the Incomplete Application Service...")
     uvicorn.run(app, host='0.0.0.0', port=8000)
