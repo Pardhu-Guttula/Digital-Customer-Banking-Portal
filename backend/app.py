@@ -1,19 +1,20 @@
-# Epic Title: PostgreSQL Integration for Service Modification Requests
+# Epic Title: FastAPI Backend for Service Modification Requests
 
-from flask import Flask
-from backend.service_modifications.controllers.service_modification_controller import service_modification_controller
+from fastapi import FastAPI
+from backend.service_modifications.controllers.service_modification_controller import router as service_modification_router
 import logging
 
-app = Flask(__name__)
-app.register_blueprint(service_modification_controller, url_prefix='/api')
+app = FastAPI()
+app.include_router(service_modification_router, prefix='/api')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-@app.route('/')
-def home():
-    return "Welcome to the Service Modification System"
+@app.get('/')
+async def home():
+    return {"message": "Welcome to the Service Modification System"}
 
 if __name__ == '__main__':
     logger.info("Starting the Service Modification System...")
-    app.run(debug=True)
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
