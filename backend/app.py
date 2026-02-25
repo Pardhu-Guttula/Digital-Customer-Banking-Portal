@@ -1,20 +1,20 @@
-# Epic Title: Resume Incomplete Applications
+# Epic Title: Create FastAPI Endpoint to Handle Document Uploads
 
 from fastapi import FastAPI
-from backend.incomplete_applications.controllers.application_controller import router as application_router
+from backend.document_upload.controllers.document_controller import router as document_router
 import logging
 
 app = FastAPI()
-app.include_router(application_router, prefix='/api')
+app.include_router(document_router, prefix='/api')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 @app.get('/')
 async def home():
-    return {"message": "Welcome to the Incomplete Application Service"}
+    return {"message": "Welcome to the Document Upload Service"}
 
 if __name__ == '__main__':
     import uvicorn
-    logger.info("Starting the Incomplete Application Service...")
+    logger.info("Starting the Document Upload Service...")
     uvicorn.run(app, host='0.0.0.0', port=8000)
