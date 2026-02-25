@@ -1,19 +1,21 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-function noop() {}
-
-export default function PrimaryButton({ children, disabled, onClick = noop }) {
-  useIntl();
+export default function PrimaryButton({ label, onClick = () => {}, fullWidth = true }) {
+  const intl = useIntl();
+  const resolvedLabel = label ?? intl.formatMessage({ id: "common.applyNow" });
 
   return (
     <button
-      type="submit"
-      disabled={disabled}
+      type="button"
       onClick={onClick}
-      className="h-11 w-full rounded-lg bg-[#030213] text-sm font-medium leading-5 tracking-[-0.1504px] text-white shadow-sm transition hover:bg-[#07062a] disabled:cursor-not-allowed disabled:opacity-60"
+      className={[
+        "h-[36px] rounded-[8px] bg-[#030213] px-4 text-center text-[14px] font-medium leading-[20px] tracking-[-0.1504px] text-white",
+        "transition-colors hover:bg-[#0b0a1f] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#030213]/30",
+        fullWidth ? "w-full" : "",
+      ].join(" ")}
     >
-      {children}
+      {resolvedLabel}
     </button>
   );
 }
