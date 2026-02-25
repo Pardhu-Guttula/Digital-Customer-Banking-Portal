@@ -1,4 +1,4 @@
-# Epic Title: Develop React UI for Submitting Service Modification Requests
+# Epic Title: Implement FastAPI Backend for Handling Service Modification Requests
 
 from fastapi import APIRouter, HTTPException, status
 from backend.service_modifications.services.service_modifications_service import ServiceModificationsService
@@ -13,12 +13,11 @@ logger = logging.getLogger(__name__)
 
 @router.post("/submit_modification_request")
 async def submit_modification_request(request: ServiceModificationRequest):
-    logger.info("Processing service modification request")
     try:
-        service.process_service_modification_request(request)
+        await service.process_request(request)
         return {"message": "Service modification request submitted successfully"}
     except ValueError as e:
-        logger.error(f"Validation error: {e}")
+        logger.error(f"Failed to process request: {e}")
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
     except Exception as e:
         logger.error(f"Unhandled exception: {e}")
