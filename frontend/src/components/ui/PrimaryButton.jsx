@@ -1,14 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import cn from "../utils/cx";
-
-function noop() {}
+import cx from "../utils/cx";
 
 export default function PrimaryButton({
   children,
-  disabled,
-  loading,
-  onClick = noop,
+  onClick = () => {},
+  disabled = false,
+  loading = false,
   type = "submit",
 }) {
   const intl = useIntl();
@@ -18,15 +16,15 @@ export default function PrimaryButton({
       type={type}
       disabled={disabled || loading}
       onClick={onClick}
-      className={cn(
-        "h-11 w-full rounded-lg bg-[#030213] text-center text-[14px] font-medium leading-5 tracking-[-0.1504px] text-white",
-        "transition-colors hover:bg-[#0b0a22] active:bg-[#05041a]",
-        "disabled:cursor-not-allowed disabled:opacity-60",
-        "focus:outline-none focus:ring-2 focus:ring-[#155dfc]/25"
+      className={cx(
+        "h-11 w-full rounded-lg bg-[#030213] text-white",
+        "text-[14px] leading-5 font-medium tracking-[-0.1504px]",
+        "hover:bg-[#05051a] active:bg-black",
+        "disabled:opacity-60 disabled:cursor-not-allowed",
+        "focus:outline-none focus-visible:ring-2 focus-visible:ring-[#030213]/30"
       )}
-      aria-label={typeof children === "string" ? children : "Continue"}
     >
-      {loading ? intl.formatMessage({ id: "primaryButton.continuing" }) : children}
+      {loading ? intl.formatMessage({ id: "common.continuing" }) : children}
     </button>
   );
 }
