@@ -1,0 +1,56 @@
+```json
+{
+  "test_assign_permission_success": [
+    {
+      "role": "admin",
+      "permissions": ["read", "write"]
+    },
+    {
+      "role": "user",
+      "permissions": ["view", "comment"]
+    },
+    {
+      "role": "moderator",
+      "permissions": ["manage_comments", "view_reports"]
+    },
+    {
+      "role": "guest",
+      "permissions": ["view"]
+    }
+  ],
+  "test_assign_permission_missing_role": [
+    {
+      "permissions": ["read", "write"]
+    },
+    {
+      "permissions": ["view"]
+    },
+    {
+      "permissions": ["manage_users", "delete_comments"]
+    },
+    {
+      "permissions": ["edit_profile", "logout"]
+    }
+  ],
+  "test_assign_permission_missing_permissions": [
+    {
+      "role": "admin"
+    },
+    {
+      "role": "user"
+    },
+    {
+      "role": "moderator"
+    },
+    {
+      "role": "guest"
+    }
+  ],
+  "test_assign_permission_empty_data": [
+    {},
+    {},
+    {},
+    {}
+  ]
+}
+```
