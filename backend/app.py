@@ -1,4 +1,4 @@
-# Epic Title: Implement FastAPI Backend for Handling Service Modification Requests
+# Epic Title: Integrate PostgreSQL for Storing Service Modification Request Details
 
 from fastapi import FastAPI
 from backend.service_modifications.controllers.service_modifications_controller import router as service_modifications_router
