@@ -1,4 +1,4 @@
-# Epic Title: Store User Interaction Data in PostgreSQL
+# Epic Title: Develop a Feature in React for Users to Access Interaction History
 
 from flask import Blueprint, request, jsonify
 from backend.interaction_history.services.interaction_service import InteractionService
