@@ -1,15 +1,20 @@
 {
-  "brandHeader.subtitle": "Your banking, simplified",
-  "brandHeader.title": "SecureBank Portal",
+  "appIconBadge.decorative": "App icon",
   "common.continue": "Continue",
   "common.continuing": "Continuing...",
-  "securityFootnote.text": "Secured with 256-bit encryption",
-  "signInCard.description": "Enter your credentials to access your account",
+  "labeledInput.ariaLabel": "Input field",
+  "securityNote.ariaLabel": "Security note",
+  "securityNote.text": "Secured with 256-bit encryption",
+  "signInCard.ariaLabel": "Sign in",
   "signInCard.forgotPassword": "Forgot password?",
   "signInCard.passwordLabel": "Password",
   "signInCard.passwordPlaceholder": "••••••••",
-  "signInCard.rememberMe": "Remember me",
+  "signInCard.rememberMeAriaLabel": "Remember me",
+  "signInCard.rememberMeLabel": "Remember me",
+  "signInCard.subtitle": "Enter your credentials to access your account",
   "signInCard.title": "Sign In",
-  "signInCard.usernameOrEmailLabel": "Username or Email",
-  "signInCard.usernameOrEmailPlaceholder": "john.doe@email.com"
+  "signInCard.usernameLabel": "Username or Email",
+  "signInCard.usernamePlaceholder": "john.doe@email.com",
+  "signInPage.brandSubtitle": "Your banking, simplified",
+  "signInPage.brandTitle": "SecureBank Portal"
 }

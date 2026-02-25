@@ -1,3 +1,3 @@
-export default function cx(...classes) {
+export function cx(...classes) {
   return classes.filter(Boolean).join(" ");
 }
