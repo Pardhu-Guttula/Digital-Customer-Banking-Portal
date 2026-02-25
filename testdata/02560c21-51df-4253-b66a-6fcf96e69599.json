@@ -1,0 +1,38 @@
+```json
+{
+    "test_create_role_success": [
+        {"role_name": "admin"},
+        {"role_name": "user"},
+        {"role_name": "guest"},
+        {"role_name": "editor"},
+        {"role_name": "contributor"},
+        {"role_name": "manager"},
+        {"role_name": "moderator"},
+        {"role_name": "reviewer"},
+        {"role_name": "superuser"},
+        {"role_name": "auditor"}
+    ],
+    "test_create_role_missing_role_name": [
+        {},
+        {"role_name": ""},
+        {"role": "admin"},
+        {"role_name": null},
+        {"role_name": " "},
+        {"name": "admin"},
+        {"role_name": "1234"},
+        {"role_name": "!!!"},
+        {"role_name": "role_name"}
+    ],
+    "test_get_roles_success": [
+        ["admin", "user", "guest"],
+        ["editor", "contributor", "manager"],
+        ["moderator", "reviewer", "superuser"],
+        ["user1", "user2", "user3"],
+        ["admin", "editor", "manager", "user"],
+        ["guest", "admin", "reviewer"],
+        ["editor", "guest", "auditor"],
+        ["superuser", "moderator", "auditor"],
+        ["manager", "contributor", "auditor"]
+    ]
+}
+```
