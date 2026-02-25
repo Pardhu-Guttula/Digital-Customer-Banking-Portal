@@ -1,4 +1,4 @@
-# Epic Title: Store User Interaction Data in PostgreSQL
+# Epic Title: Develop a Feature in React for Users to Access Interaction History
 
 from backend.interaction_history.repositories.interaction_repository import InteractionRepository
 import logging
