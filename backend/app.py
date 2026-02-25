@@ -1,13 +1,11 @@
-# Epic Title: Enforce Role-Based Access Control Using FastAPI
+# Epic Title: Implement Role-Based Access Controls for User Authorization
 
 from fastapi import FastAPI
-from backend.access_control.controllers.admin_controller import router as admin_router
-from backend.access_control.controllers.user_controller import router as user_router
+from backend.rbac.controllers.role_controller import router as role_router
 import logging
 
 app = FastAPI()
-app.include_router(admin_router, prefix='/api')
-app.include_router(user_router, prefix='/api')
+app.include_router(role_router, prefix='/api')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
