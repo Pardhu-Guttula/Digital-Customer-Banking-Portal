@@ -37,3 +37,14 @@ class SecurityService:
         if not stored_otp:
             return False
         return otp == stored_otp
+
+    def store_user_credentials(self, username: str, password: str):
+        password_hash = hashlib.sha256(password.encode()).hexdigest()
+        self.security_repository.store_password_hash(username, password_hash)
+
+    def handle_failed_login_attempts(self, username: str):
+        self.security_repository.increment_failed_attempts(username)
+
+    def reset_failed_login_attempts(self, username: str):
+        self.security_repository.reset_failed_attempts(username)
+
