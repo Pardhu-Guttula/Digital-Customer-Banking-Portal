@@ -1,6 +1,6 @@
-# Epic Title: Implement role-based access control for user authorization
+# Epic Title: Enforce Role-Based Access Control Using FastAPI
 
 CREATE TABLE roles (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) UNIQUE NOT NULL
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(255) NOT NULL
 );
