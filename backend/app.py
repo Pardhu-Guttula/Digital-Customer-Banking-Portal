@@ -1,4 +1,4 @@
-# Epic Title: Develop Secure Authentication Mechanisms Using FastAPI
+# Epic Title: Integrate PostgreSQL for Storing User Credentials
 
 from fastapi import FastAPI
 from backend.authentication.controllers.auth_controller import router as auth_router
