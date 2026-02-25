@@ -1,12 +1,12 @@
-# Epic Title: Develop Responsive Design for the Portal Using React
+# Epic Title: Develop Document Upload Capability Using React
 
 import React from 'react';
-import PortalLayout from './components/PortalLayout';
+import DocumentUpload from './components/DocumentUpload';
 
 function App() {
   return (
     <div className="App">
-      <PortalLayout />
+      <DocumentUpload />
     </div>
   );
 }
