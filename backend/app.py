@@ -1,19 +1,20 @@
-# Epic Title: Store User Interaction Data in PostgreSQL
+# Epic Title: FastAPI Email Notification Service
 
-from flask import Flask
-from backend.interaction_history.controllers.interaction_controller import interaction_controller
+from fastapi import FastAPI
+from backend.email_notifications.controllers.email_notification_controller import router as email_notification_router
 import logging
 
-app = Flask(__name__)
-app.register_blueprint(interaction_controller, url_prefix='/api')
+app = FastAPI()
+app.include_router(email_notification_router, prefix='/api')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-@app.route('/')
-def home():
-    return "Welcome to the User Interaction Service"
+@app.get('/')
+async def home():
+    return {"message": "Welcome to the Email Notification Service"}
 
 if __name__ == '__main__':
-    logger.info("Starting the User Interaction Service...")
-    app.run(debug=True)
+    import uvicorn
+    logger.info("Starting the Email Notification Service...")
+    uvicorn.run(app, host='0.0.0.0', port=8000)
