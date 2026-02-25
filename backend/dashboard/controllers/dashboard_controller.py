@@ -1,23 +1,26 @@
-# Epic Title: Dynamic and Interactive Dashboard UI using React
+# Epic Title: Personalized User Dashboard for Banking Products and Services
 
-from flask import Blueprint, request, jsonify
-from sqlalchemy.exc import SQLAlchemyError
-from backend.database.config import get_db
+from flask import Blueprint, jsonify, request
 from backend.dashboard.services.dashboard_service import DashboardService
+import logging
 
-dashboard_bp = Blueprint('dashboard', __name__)
+dashboard_controller = Blueprint('dashboard_controller', __name__)
+dashboard_service = DashboardService()
 
-@dashboard_bp.route('/dashboard', methods=['GET'])
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+@dashboard_controller.route('/dashboard', methods=['GET'])
 def get_dashboard():
-    db = next(get_db())
     user_id = request.args.get('user_id')
-
-    dashboard_service = DashboardService(db)
-
+    if not user_id:
+        logger.error("User ID not provided in request.")
+        return jsonify({'error': 'User ID is required'}), 400
+    
     try:
-        dashboard_data = dashboard_service.fetch_dashboard_data(user_id)
-        if dashboard_data is None:
-            return jsonify({"error": "User profile data missing"}), 404
-        return jsonify(dashboard_data), 200
-    except SQLAlchemyError as e:
-        return jsonify({"error": "Unable to process your request"}), 500
+        logger.info(f"Fetching dashboard for user {user_id}")
+        data = dashboard_service.get_personalized_dashboard(user_id)
+        return jsonify(data), 200
+    except Exception as e:
+        logger.error(f"Error fetching dashboard: {e}")
+        return jsonify({'error': 'Internal server error'}), 500
