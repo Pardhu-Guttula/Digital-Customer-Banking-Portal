@@ -1,4 +1,4 @@
-# Epic Title: Develop a Feature in React for Users to Access Interaction History
+# Epic Title: Store User Interaction Data in PostgreSQL
 
 CREATE TABLE user_interactions (
     id SERIAL PRIMARY KEY,
