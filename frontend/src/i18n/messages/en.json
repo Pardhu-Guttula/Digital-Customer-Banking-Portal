@@ -1,9 +1,9 @@
 {
-  "appIconTile.ariaLabel": "SecureBank",
+  "bankingSelfServicePortalDesign.defaultUsernameOrEmail": "john.doe@email.com",
   "brandHeader.subtitle": "Your banking, simplified",
   "brandHeader.title": "SecureBank Portal",
+  "checkboxWithLabel.rememberMe": "Remember me",
   "securityNote.text": "Secured with 256-bit encryption",
-  "signInCard.ariaLabel": "Sign in",
   "signInCard.continue": "Continue",
   "signInCard.continuing": "Continuing...",
   "signInCard.description": "Enter your credentials to access your account",

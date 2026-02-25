@@ -1,16 +1,19 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-export default function TextLink({ children, href = "#", onClick = () => {} }) {
+export default function TextLink({ children, onClick = () => {}, href = "#" }) {
   const intl = useIntl();
 
   return (
     <a
       href={href}
-      onClick={(e) => onClick(e)}
-      className="text-[14px] leading-5 font-normal tracking-[-0.1504px] text-[#155DFC] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#155DFC]/35 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded"
+      onClick={(e) => {
+        e.preventDefault();
+        onClick();
+      }}
+      className="text-[14px] leading-5 tracking-[-0.1504px] text-[#155dfc] hover:underline underline-offset-2 focus:outline-none focus:ring-4 focus:ring-[#155dfc]/15 rounded"
     >
-      {children ?? intl.formatMessage({ id: "textLink.label" })}
+      {children}
     </a>
   );
 }

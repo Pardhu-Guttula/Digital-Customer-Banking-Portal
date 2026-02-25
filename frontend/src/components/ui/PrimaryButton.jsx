@@ -1,17 +1,22 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-export default function PrimaryButton({ children, disabled, onClick = () => {} }) {
+export default function PrimaryButton({
+  children,
+  disabled,
+  onClick = () => {},
+  type = "button",
+}) {
   const intl = useIntl();
 
   return (
     <button
-      type="submit"
+      type={type}
       disabled={disabled}
-      onClick={(e) => onClick(e)}
-      className="h-11 w-full rounded-lg bg-[#030213] text-white text-[14px] leading-5 font-medium tracking-[-0.1504px] hover:bg-[#0A0A1A] active:bg-[#00010A] disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-[#030213]/35 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+      onClick={onClick}
+      className="h-11 w-full rounded-lg bg-[#030213] text-white text-[14px] leading-5 font-medium tracking-[-0.1504px] shadow-sm hover:bg-[#070625] disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus:ring-4 focus:ring-[#030213]/20"
     >
-      {children ?? intl.formatMessage({ id: "primaryButton.label" })}
+      {children}
     </button>
   );
 }

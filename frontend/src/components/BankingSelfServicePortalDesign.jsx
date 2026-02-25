@@ -1,68 +1,79 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useIntl } from "react-intl";
-import { User } from "lucide-react";
+import AuthLayout from "./layout/AuthLayout";
 import BrandHeader from "./layout/BrandHeader";
 import SecurityNote from "./layout/SecurityNote";
 import SignInCard from "./ui/SignInCard";
 
-const imgIcon = "https://www.figma.com/api/mcp/asset/b1febb15-78c6-44e2-80ba-3ce5edd2b922";
-const imgIcon1 = "https://www.figma.com/api/mcp/asset/ea22b803-388a-4156-8862-7d96d7fab9ef";
+const imgIcon = "https://www.figma.com/api/mcp/asset/95f964c2-bdae-4883-802b-f16916c88315";
+const imgIcon1 = "https://www.figma.com/api/mcp/asset/39389a2f-d6b8-4718-be4a-70c37a6870a9";
 
 export default function BankingSelfServicePortalDesign({
-  initialUsernameOrEmail = "john.doe@email.com",
-  initialPassword = "",
-  initialRememberMe = false,
-  onSubmit = () => {},
-  onForgotPassword = () => {},
-  onBrandClick = () => {},
-  forgotPasswordHref = "#",
+  usernameOrEmail: usernameOrEmailProp,
+  password: passwordProp,
+  rememberMe: rememberMeProp,
   loading = false,
+  onUsernameOrEmailChange = () => {},
+  onPasswordChange = () => {},
+  onRememberMeChange = () => {},
+  onForgotPassword = () => {},
+  onSubmit = () => {},
 }) {
   const intl = useIntl();
 
-  const [usernameOrEmail, setUsernameOrEmail] = useState(initialUsernameOrEmail);
-  const [password, setPassword] = useState(initialPassword);
-  const [rememberMe, setRememberMe] = useState(initialRememberMe);
+  const isControlled =
+    typeof usernameOrEmailProp === "string" &&
+    typeof passwordProp === "string" &&
+    typeof rememberMeProp === "boolean";
 
-  const backgroundStyle = useMemo(
-    () => ({
-      backgroundImage:
-        "linear-gradient(145.03869956590015deg, rgb(239, 246, 255) 0%, rgb(255, 255, 255) 50%, rgb(239, 246, 255) 100%)",
-    }),
-    []
+  const [usernameOrEmailLocal, setUsernameOrEmailLocal] = useState(
+    intl.formatMessage({ id: "bankingSelfServicePortalDesign.defaultUsernameOrEmail" })
   );
+  const [passwordLocal, setPasswordLocal] = useState("");
+  const [rememberMeLocal, setRememberMeLocal] = useState(false);
+
+  const usernameOrEmail = isControlled ? usernameOrEmailProp : usernameOrEmailLocal;
+  const password = isControlled ? passwordProp : passwordLocal;
+  const rememberMe = isControlled ? rememberMeProp : rememberMeLocal;
+
+  const handleUsernameOrEmailChange = (next) => {
+    if (!isControlled) setUsernameOrEmailLocal(next);
+    onUsernameOrEmailChange(next);
+  };
+
+  const handlePasswordChange = (next) => {
+    if (!isControlled) setPasswordLocal(next);
+    onPasswordChange(next);
+  };
+
+  const handleRememberMeChange = (next) => {
+    if (!isControlled) setRememberMeLocal(next);
+    onRememberMeChange(next);
+  };
+
+  const handleSubmit = (payload) => {
+    onSubmit(payload);
+  };
 
   return (
-    <main className="min-h-screen w-full" style={backgroundStyle}>
-      <section className="min-h-screen w-full flex items-center justify-center px-4 py-10">
-        <div className="w-full max-w-[448px] flex flex-col gap-6">
-          <BrandHeader
-            title={intl.formatMessage({ id: "brandHeader.title" })}
-            subtitle={intl.formatMessage({ id: "brandHeader.subtitle" })}
-            onBrandClick={onBrandClick}
-          />
+    <AuthLayout>
+      <div className="w-full max-w-[448px] flex flex-col items-stretch gap-6">
+        <BrandHeader />
 
-          <SignInCard
-            usernameOrEmail={usernameOrEmail}
-            password={password}
-            rememberMe={rememberMe}
-            onUsernameOrEmailChange={setUsernameOrEmail}
-            onPasswordChange={setPassword}
-            onRememberMeChange={setRememberMe}
-            onForgotPassword={onForgotPassword}
-            forgotPasswordHref={forgotPasswordHref}
-            loading={loading}
-            onSubmit={(payload) => onSubmit(payload)}
-            headerIcon={User}
-          />
+        <SignInCard
+          usernameOrEmail={usernameOrEmail}
+          password={password}
+          rememberMe={rememberMe}
+          loading={loading}
+          onUsernameOrEmailChange={handleUsernameOrEmailChange}
+          onPasswordChange={handlePasswordChange}
+          onRememberMeChange={handleRememberMeChange}
+          onForgotPassword={onForgotPassword}
+          onSubmit={handleSubmit}
+        />
 
-          <SecurityNote text={intl.formatMessage({ id: "securityNote.text" })} />
-        </div>
-      </section>
-
-      {/* Asset constants preserved from MCP output (not used directly after icon conversion) */}
-      <img src={imgIcon} alt="" className="hidden" />
-      <img src={imgIcon1} alt="" className="hidden" />
-    </main>
+        <SecurityNote />
+      </div>
+    </AuthLayout>
   );
 }
