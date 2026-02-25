@@ -1,4 +1,4 @@
-# Epic Title: Secure and Efficient Data Storage with PostgreSQL
+# Epic Title: Backend User Authentication with Multi-Factor Authentication
 
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
