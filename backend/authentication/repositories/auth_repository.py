@@ -1,4 +1,4 @@
-# Epic Title: Implement User Authentication with Multi-Factor Authentication
+# Epic Title: Develop Secure Authentication Mechanisms Using FastAPI
 
 import psycopg2
 import logging
@@ -50,6 +50,19 @@ class AuthRepository:
         except psycopg2.Error as e:
             self.connection.rollback()
             logger.error(f"Error invalidating OTP: {e}")
+            raise
+        finally:
+            cursor.close()
+
+    def create_user(self, email: str, hashed_password: str):
+        logger = logging.getLogger(__name__)
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("INSERT INTO users (email, password_hash) VALUES (%s, %s)", (email, hashed_password))
+            self.connection.commit()
+        except psycopg2.Error as e:
+            self.connection.rollback()
+            logger.error(f"Error creating user: {e}")
             raise
         finally:
             cursor.close()
