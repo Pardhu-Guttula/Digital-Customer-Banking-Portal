@@ -1,10 +1,9 @@
-# Epic Title: Enforce Role-Based Access Control Using FastAPI
+# Epic Title: Secure Role-Based Data Segregation in PostgreSQL
 
 from fastapi import HTTPException, status, Depends
 import logging
 
 def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
-    # This is a placeholder function. Implement actual token parsing and user retrieval logic
     logger = logging.getLogger(__name__)
     logger.info("Validating user token")
     
