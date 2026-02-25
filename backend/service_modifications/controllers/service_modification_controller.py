@@ -1,4 +1,4 @@
-# Epic Title: Redis Caching for Service Modification Workflows
+# Epic Title: PostgreSQL Integration for Service Modification Requests
 
 from flask import Blueprint, request, jsonify
 from backend.service_modifications.services.service_modification_service import ServiceModificationService
