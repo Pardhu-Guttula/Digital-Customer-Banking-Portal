@@ -1,4 +1,4 @@
-# Epic Title: Implement User Authentication with Multi-Factor Authentication
+# Epic Title: Develop Secure Authentication Mechanisms Using FastAPI
 
 class OTP:
     def __init__(self, email: str, otp: str):
