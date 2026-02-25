@@ -52,3 +52,14 @@ class SecurityService:
 
     def reset_failed_login_attempts(self, username: str):
         self.security_repository.reset_failed_attempts(username)
+
+    def authenticate_user_with_otp(self, username: str, password: str, otp: str) -> bool:
+        if not self.validate_user_credentials(username, password):
+            self.handle_failed_login_attempts(username)
+            return False
+        user_id = self.security_repository.get_user_id_by_username(username)
+        if not self.validate_otp(user_id, otp):
+            self.handle_failed_login_attempts(username)
+            return False
+        self.reset_failed_login_attempts(username)
+        return True
