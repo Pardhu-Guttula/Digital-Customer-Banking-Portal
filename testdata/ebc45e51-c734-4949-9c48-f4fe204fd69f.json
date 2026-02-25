@@ -1,0 +1,74 @@
+```json
+{
+  "test_secure_api_call_valid_token_and_data": [
+    {
+      "headers": {"Authorization": "valid-token"},
+      "json": {"username": "user1", "password": "pass1"}
+    },
+    {
+      "headers": {"Authorization": "valid-token"},
+      "json": {"email": "user1@example.com", "password": "securepass123"}
+    },
+    {
+      "headers": {"Authorization": "valid-token"},
+      "json": {"accountID": "123456", "password": "complexPass!@#"}
+    }
+  ],
+  "test_secure_api_call_invalid_token": [
+    {
+      "headers": {"Authorization": "invalid-token"},
+      "json": {"username": "user1", "password": "pass1"}
+    },
+    {
+      "headers": {"Authorization": "wrong-token"},
+      "json": {"email": "user2@example.com", "password": "passwordTwo"}
+    },
+    {
+      "headers": {"Authorization": "expired-token"},
+      "json": {"accountID": "789012", "password": "Pass@word123"}
+    }
+  ],
+  "test_secure_api_call_missing_token": [
+    {
+      "headers": {},
+      "json": {"username": "user3", "password": "pass3"}
+    },
+    {
+      "headers": {},
+      "json": {"email": "user3@example.com", "password": "secure123"}
+    },
+    {
+      "headers": {},
+      "json": {"accountID": "456789", "password": "MyPassword!@#"}
+    }
+  ],
+  "test_secure_api_call_encryption_failure": [
+    {
+      "headers": {"Authorization": "valid-token"},
+      "json": {"username": "user4", "password": "pass4"}
+    },
+    {
+      "headers": {"Authorization": "valid-token"},
+      "json": {"email": "user4@example.com", "password": "strongPass000"}
+    },
+    {
+      "headers": {"Authorization": "valid-token"},
+      "json": {"accountID": "654321", "password": "EncryptionFail!123"}
+    }
+  ],
+  "test_secure_api_call_no_payload": [
+    {
+      "headers": {"Authorization": "valid-token"},
+      "json": {}
+    },
+    {
+      "headers": {"Authorization": "another-good-token"},
+      "json": null
+    },
+    {
+      "headers": {"Authorization": "third-valid-token"},
+      "json": {}
+    }
+  ]
+}
+```
