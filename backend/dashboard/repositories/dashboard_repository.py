@@ -1,27 +1,29 @@
-# Epic Title: Dynamic and Interactive Dashboard UI using React
+# Epic Title: Personalized User Dashboard for Banking Products and Services
 
-from sqlalchemy.orm import Session
+import psycopg2
+import logging
+
+logger = logging.getLogger(__name__)
 
 class DashboardRepository:
-    def __init__(self, db_session: Session):
-        self.db_session = db_session
+    def fetch_user_dashboard(self, user_id: int) -> dict:
+        connection = psycopg2.connect(
+            host='localhost', database='bank_system', user='bank_user', password='bank_password'
+        )
+        cursor = connection.cursor()
 
-    def get_user_profile(self, user_id: str):
-        return self.db_session.execute(
-            "SELECT * FROM user_profiles WHERE user_id = :user_id",
-            {"user_id": user_id}
-        ).fetchone()
-
-    def get_banking_products(self, user_profile):
-        eligibility_criteria = user_profile['eligibility_criteria']
-        return self.db_session.execute(
-            "SELECT * FROM banking_products WHERE eligibility_criteria = :eligibility_criteria",
-            {"eligibility_criteria": eligibility_criteria}
-        ).fetchall()
-
-    def get_services(self, user_profile):
-        user_preferences = user_profile['preferences']
-        return self.db_session.execute(
-            "SELECT * FROM services WHERE preference IN :preferences",
-            {"preferences": user_preferences}
-        ).fetchall()
+        try:
+            cursor.execute("""
+                SELECT products, services 
+                FROM user_dashboard 
+                WHERE user_id = %s
+            """, (user_id,))
+            result = cursor.fetchone()
+            if result:
+                return {'products': result[0], 'services': result[1]}
+        except psycopg2.Error as e:
+            logger.error(f"Error fetching dashboard data: {e}")
+        finally:
+            cursor.close()
+            connection.close()
+        return {'products': [], 'services': []}
