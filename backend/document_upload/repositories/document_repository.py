@@ -1,15 +1,24 @@
-# Epic Title: Document Upload
+# Epic Title: Create FastAPI Endpoint to Handle Document Uploads
 
-from sqlalchemy.orm import Session
+import asyncpg
+import logging
 
 class DocumentRepository:
-    def __init__(self, db_session: Session):
-        self.db_session = db_session
+    def __init__(self):
+        self.dsn = 'postgresql://service_user:service_password@localhost:5432/service_db'
 
-    def save_document(self, data: dict):
-        query = """
-            INSERT INTO documents (filename, path)
-            VALUES (:filename, :path)
-        """
-        self.db_session.execute(query, data)
-        self.db_session.commit()
+    async def save_document_metadata(self, filename: str):
+        conn = await asyncpg.connect(dsn=self.dsn)
+        logger = logging.getLogger(__name__)
+        
+        try:
+            await conn.execute("""
+                INSERT INTO documents (filename)
+                VALUES ($1)
+            """, filename)
+            logger.info("Document metadata saved in PostgreSQL")
+        except Exception as e:
+            logger.error(f"Error saving document metadata: {e}")
+            raise
+        finally:
+            await conn.close()
