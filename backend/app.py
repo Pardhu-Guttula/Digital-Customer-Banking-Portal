@@ -1,4 +1,4 @@
-# Epic Title: Create FastAPI Endpoint to Handle Document Uploads
+# Epic Title: Store Uploaded Documents in PostgreSQL
 
 from fastapi import FastAPI
 from backend.document_upload.controllers.document_controller import router as document_router
