@@ -1,9 +1,9 @@
-# Epic Title: Develop Document Upload Capability Using React
+# Epic Title: Create FastAPI Endpoint to Handle Document Uploads
 
 from backend.document_upload.repositories.document_repository import DocumentRepository
 from fastapi import UploadFile
 import logging
-import shutil
+import aiofiles
 import os
 
 class DocumentService:
@@ -12,12 +12,13 @@ class DocumentService:
         self.upload_directory = "/path/to/upload/directory"
         os.makedirs(self.upload_directory, exist_ok=True)
 
-    def save_document(self, file: UploadFile):
+    async def save_document(self, file: UploadFile):
         logger = logging.getLogger(__name__)
         file_location = f"{self.upload_directory}/{file.filename}"
         
-        with open(file_location, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
+        async with aiofiles.open(file_location, "wb") as buffer:
+            content = await file.read()  # Read the file in bytes
+            await buffer.write(content) # Write the file to destination
         
         logger.info(f"File {file.filename} saved at {file_location}")
-        self.repository.save_document_metadata(file.filename)
+        await self.repository.save_document_metadata(file.filename)
