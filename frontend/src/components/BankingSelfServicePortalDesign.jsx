@@ -1,74 +1,72 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 import BrandHeader from "./layout/BrandHeader";
 import SecurityFootnote from "./layout/SecurityFootnote";
 import SignInCard from "./ui/SignInCard";
 
-function noop() {}
+const imgIcon =
+  "https://www.figma.com/api/mcp/asset/e1c0a465-2eb4-421b-912c-5dcee448d5ee";
+const imgIcon1 =
+  "https://www.figma.com/api/mcp/asset/8f864b25-dcb6-4e1a-8819-a0267fd40421";
 
 export default function BankingSelfServicePortalDesign({
-  usernameOrEmail: usernameOrEmailProp,
-  password: passwordProp,
-  rememberMe: rememberMeProp,
-  onUsernameOrEmailChange = noop,
-  onPasswordChange = noop,
-  onRememberMeChange = noop,
-  onForgotPassword = noop,
-  onSubmit = noop,
-  brandIconMode = "lucide",
-  signInHeaderIconMode = "lucide",
+  initialUsernameOrEmail = "john.doe@email.com",
+  initialPassword = "",
+  initialRememberMe = false,
+  loading = false,
+  error = "",
+  onBrandClick = () => {},
+  onForgotPassword = () => {},
+  onSubmit = () => {},
 }) {
   const intl = useIntl();
 
-  const [usernameOrEmailLocal, setUsernameOrEmailLocal] = useState("john.doe@email.com");
-  const [passwordLocal, setPasswordLocal] = useState("");
-  const [rememberMeLocal, setRememberMeLocal] = useState(false);
+  const [usernameOrEmail, setUsernameOrEmail] = useState(initialUsernameOrEmail);
+  const [password, setPassword] = useState(initialPassword);
+  const [rememberMe, setRememberMe] = useState(initialRememberMe);
 
-  const isUsernameControlled = typeof usernameOrEmailProp === "string";
-  const isPasswordControlled = typeof passwordProp === "string";
-  const isRememberControlled = typeof rememberMeProp === "boolean";
-
-  const usernameOrEmail = isUsernameControlled ? usernameOrEmailProp : usernameOrEmailLocal;
-  const password = isPasswordControlled ? passwordProp : passwordLocal;
-  const rememberMe = isRememberControlled ? rememberMeProp : rememberMeLocal;
+  const bgStyle = useMemo(
+    () => ({
+      backgroundImage:
+        "linear-gradient(145.03869956590015deg, rgb(239, 246, 255) 0%, rgb(255, 255, 255) 50%, rgb(239, 246, 255) 100%)",
+    }),
+    []
+  );
 
   return (
-    <main
-      className="min-h-screen w-full bg-white"
-      aria-label={intl.formatMessage({ id: "bankingPortal.mainAriaLabel" })}
-      style={{
-        backgroundImage:
-          "linear-gradient(145.03869956590015deg, rgb(239, 246, 255) 0%, rgb(255, 255, 255) 50%, rgb(239, 246, 255) 100%)",
-      }}
-    >
-      <div className="flex min-h-screen w-full items-center justify-center px-4 py-10">
-        <div className="flex w-full max-w-[448px] flex-col items-stretch gap-6">
-          <BrandHeader iconMode={brandIconMode} />
+    <main className="min-h-screen w-full bg-white" style={bgStyle}>
+      <section className="flex min-h-screen w-full items-center justify-center px-4 py-10 sm:px-6">
+        <div className="flex w-full max-w-[448px] flex-col gap-6">
+          <BrandHeader
+            title={intl.formatMessage({
+              id: "brandHeader.title",
+            })}
+            subtitle={intl.formatMessage({
+              id: "brandHeader.subtitle",
+            })}
+            onBrandClick={onBrandClick}
+          />
 
           <SignInCard
             usernameOrEmail={usernameOrEmail}
             password={password}
             rememberMe={rememberMe}
-            headerIconMode={signInHeaderIconMode}
-            onUsernameOrEmailChange={(next) => {
-              if (!isUsernameControlled) setUsernameOrEmailLocal(next);
-              onUsernameOrEmailChange(next);
-            }}
-            onPasswordChange={(next) => {
-              if (!isPasswordControlled) setPasswordLocal(next);
-              onPasswordChange(next);
-            }}
-            onRememberMeChange={(next) => {
-              if (!isRememberControlled) setRememberMeLocal(next);
-              onRememberMeChange(next);
-            }}
+            loading={loading}
+            error={error}
+            onUsernameOrEmailChange={setUsernameOrEmail}
+            onPasswordChange={setPassword}
+            onRememberMeChange={setRememberMe}
             onForgotPassword={onForgotPassword}
             onSubmit={onSubmit}
           />
 
-          <SecurityFootnote />
+          <SecurityFootnote
+            text={intl.formatMessage({
+              id: "securityFootnote.text",
+            })}
+          />
         </div>
-      </div>
+      </section>
     </main>
   );
 }
