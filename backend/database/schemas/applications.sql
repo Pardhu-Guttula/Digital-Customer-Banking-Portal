@@ -1,4 +1,4 @@
-# Epic Title: Save Incomplete Applications
+# Epic Title: Resume Incomplete Applications
 
 CREATE TABLE applications (
     user_id INT PRIMARY KEY,
