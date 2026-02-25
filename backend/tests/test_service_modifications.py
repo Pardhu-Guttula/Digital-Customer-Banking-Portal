@@ -1,4 +1,4 @@
-# Epic Title: Implement FastAPI Backend for Handling Service Modification Requests
+# Epic Title: Integrate PostgreSQL for Storing Service Modification Request Details
 
 import pytest
 from httpx import AsyncClient
@@ -42,3 +42,10 @@ async def test_server_error():
         }
         response = await client.post("/api/submit_modification_request", json=payload)
         assert response.status_code == 500
+
+@pytest.mark.asyncio
+async def test_retrieve_requests():
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        response = await client.get("/api/retrieve_modification_requests")
+        assert response.status_code == 200
+        assert "modifications" in response.json()
