@@ -1,12 +1,12 @@
-# Epic Title: React UI for Service Modification Requests
+# Epic Title: Frontend Account Opening Workflow Using React
 
 import React from 'react';
-import ServiceModificationForm from './components/ServiceModificationForm';
+import AccountOpeningForm from './components/AccountOpeningForm';
 
 function App() {
   return (
     <div className="App">
-      <ServiceModificationForm />
+      <AccountOpeningForm />
     </div>
   );
 }
