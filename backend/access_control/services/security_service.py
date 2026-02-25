@@ -4,6 +4,9 @@ from backend.access_control.repositories.security_repository import SecurityRepo
 from cryptography.fernet import Fernet
 import os
 import hashlib
+import random
+import string
+from datetime import datetime, timedelta
 
 class SecurityService:
     def __init__(self, db):
@@ -29,12 +32,14 @@ class SecurityService:
         return password_hash == stored_password_hash
 
     def generate_otp(self, user_id: int) -> str:
-        otp = self.security_repository.create_otp(user_id)
+        otp = ''.join(random.choices(string.digits, k=6))
+        expiry_time = datetime.now() + timedelta(minutes=5)
+        self.security_repository.store_otp(user_id, otp, expiry_time)
         return otp
 
     def validate_otp(self, user_id: int, otp: str) -> bool:
-        stored_otp = self.security_repository.get_otp(user_id)
-        if not stored_otp:
+        stored_otp, expiry_time = self.security_repository.get_otp(user_id)
+        if not stored_otp or datetime.now() > expiry_time:
             return False
         return otp == stored_otp
 
@@ -47,4 +52,3 @@ class SecurityService:
 
     def reset_failed_login_attempts(self, username: str):
         self.security_repository.reset_failed_attempts(username)
-
