@@ -1,0 +1,80 @@
+{
+  "test_process_modification_request_successful": [
+    {
+      "service_name": "Service B",
+      "modification_details": "Updated configuration"
+    },
+    {
+      "service_name": "Service C",
+      "modification_details": "Changed endpoint URL"
+    },
+    {
+      "service_name": "Service D",
+      "modification_details": "Adjusted timeout settings"
+    }
+  ],
+  "test_process_modification_request_missing_service_name": [
+    {
+      "modification_details": "Update user permissions"
+    },
+    {
+      "modification_details": "Remove service dependencies"
+    },
+    {
+      "modification_details": "Optimize memory usage"
+    }
+  ],
+  "test_process_modification_request_missing_modification_details": [
+    {
+      "service_name": "Service E"
+    },
+    {
+      "service_name": "Service F"
+    },
+    {
+      "service_name": "Service G"
+    }
+  ],
+  "test_process_modification_request_empty_service_name": [
+    {
+      "service_name": "",
+      "modification_details": "Enable logging"
+    },
+    {
+      "service_name": "",
+      "modification_details": "Update API key"
+    },
+    {
+      "service_name": "",
+      "modification_details": "Refactor codebase"
+    }
+  ],
+  "test_process_modification_request_empty_modification_details": [
+    {
+      "service_name": "Service H",
+      "modification_details": ""
+    },
+    {
+      "service_name": "Service I",
+      "modification_details": ""
+    },
+    {
+      "service_name": "Service J",
+      "modification_details": ""
+    }
+  ],
+  "test_process_modification_request_backend_exception": [
+    {
+      "service_name": "Service K",
+      "modification_details": "Integrate new module"
+    },
+    {
+      "service_name": "Service L",
+      "modification_details": "Upgrade database schema"
+    },
+    {
+      "service_name": "Service M",
+      "modification_details": "Add new microservice"
+    }
+  ]
+}
