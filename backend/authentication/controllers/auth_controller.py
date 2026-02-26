@@ -1,4 +1,4 @@
-# Epic Title: Integrate PostgreSQL for Storing User Credentials
+# Epic Title: Login and Authentication
 
 from fastapi import APIRouter, HTTPException, status
 from backend.authentication.services.auth_service import AuthService
