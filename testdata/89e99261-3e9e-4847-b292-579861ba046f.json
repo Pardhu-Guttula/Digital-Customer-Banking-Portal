@@ -1,0 +1,77 @@
+{
+  "test_save_account_opening_request_success": [
+    {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "phone": "1234567890",
+      "address": "123 Main St",
+      "income": 50000
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com",
+      "phone": "0987654321",
+      "address": "456 Elm St",
+      "income": 60000
+    },
+    {
+      "name": "Sam Smith",
+      "email": "sam.smith@example.com",
+      "phone": "5555555555",
+      "address": "789 Oak St",
+      "income": 70000
+    }
+  ],
+  "test_save_account_opening_request_missing_required_fields": [
+    {},
+    {
+      "name": "John Doe"
+    },
+    {
+      "email": "john.doe@example.com"
+    },
+    {
+      "phone": "1234567890"
+    }
+  ],
+  "test_save_account_opening_request_null_data": [
+    null
+  ],
+  "test_save_account_opening_request_partial_data": [
+    {
+      "name": "John Doe",
+      "income": 50000
+    },
+    {
+      "email": "john.doe@example.com",
+      "address": "123 Main St"
+    },
+    {
+      "phone": "1234567890",
+      "income": 50000
+    }
+  ],
+  "test_save_account_opening_request_sql_failure": [
+    {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "phone": "1234567890",
+      "address": "123 Main St",
+      "income": 50000
+    },
+    {
+      "name": "Ella Fitzgerald",
+      "email": "ella.fitzgerald@example.com",
+      "phone": "4444444444",
+      "address": "789 Pine St",
+      "income": 45000
+    },
+    {
+      "name": "Louis Armstrong",
+      "email": "louis.armstrong@example.com",
+      "phone": "3333333333",
+      "address": "456 Cedar St",
+      "income": 80000
+    }
+  ]
+}
