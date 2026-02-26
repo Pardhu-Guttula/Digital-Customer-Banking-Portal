@@ -1,0 +1,42 @@
+```json
+{
+  "test_modify_service_successful_modification": [
+    {"key": "value"},
+    {"key": "anotherValue"},
+    {"key1": "value1", "key2": "value2"},
+    {"username": "testuser", "permissions": ["read", "write"]},
+    {"service_id": "abc123", "newConfig": {"setting": "enabled"}}
+  ],
+
+  "test_modify_service_failure_due_to_process_modification": [
+    {"key": "failValue"},
+    {"invalid_key": "invalidValue"},
+    {"modification_type": "invalidType"},
+    {"service_id": "nonexistentService", "newConfig": {"setting": "disabled"}},
+    {"username": "invaliduser", "permissions": ["unknown"]}
+  ],
+
+  "test_modify_service_sqlalchemy_error": [
+    {"service_id": "db_error_service", "config_change": {"param":"error_case"}},
+    {"user": "db_error_user", "action": "trigger_db_error"},
+    {"operation": "modify", "parameters": {"cause": "sqlalchemy_exception"}},
+    {"service_id": "faulty_service", "new_settings": {"raise": "db_exception"}}
+  ],
+
+  "test_modify_service_invalid_json": [
+    "not a json",
+    {"incomplete_json": True,
+    {"bad":json},
+    12345,
+    "json_string"
+  ],
+
+  "test_modify_service_db_connection_issue": [
+    {"service_id": "db_conn_issue", "config": {"setting": "trigger_issue"}},
+    {"username": "db_issue_user", "action": "cause_connection_issue"},
+    {"database_test": {"simulate": "connection_drop"}},
+    {"setup": {"simulate_error": "db_connection"}},
+    {"test_case": "simulate_db_failure", "expected": "500_error"}
+  ]
+}
+```
