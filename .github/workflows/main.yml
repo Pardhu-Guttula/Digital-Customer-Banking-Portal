@@ -15,6 +15,7 @@ jobs:
     # Environment variables
     env:
       vm_name: customer-banking
+      NODE_ENV: development
 
     steps:
     - uses: actions/checkout@v2
