@@ -1,4 +1,4 @@
-# Epic Title: Login and Authentication
+# Epic Title: User Authentication and MFA
 
 from flask import Blueprint, request, jsonify
 from sqlalchemy.exc import SQLAlchemyError
