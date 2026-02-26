@@ -1,0 +1,44 @@
+```json
+{
+  "test_process_opening_request_success": [
+    {"name": "Alice", "email": "alice@example.com", "phone": "9876543210"},
+    {"name": "Bob", "email": "bob@example.com", "phone": "2345678901"},
+    {"name": "Charlie", "email": "charlie@example.com", "phone": "3456789012"}
+  ],
+  "test_process_opening_request_missing_name": [
+    {"email": "mike@example.com", "phone": "5678901234"},
+    {"email": "tom@example.com", "phone": "6789012345"},
+    {"email": "sara@example.com", "phone": "7890123456"}
+  ],
+  "test_process_opening_request_missing_email": [
+    {"name": "Daisy", "phone": "8901234567"},
+    {"name": "Eve", "phone": "9012345678"},
+    {"name": "Frank", "phone": "0123456789"}
+  ],
+  "test_process_opening_request_missing_phone": [
+    {"name": "Grace", "email": "grace@example.com"},
+    {"name": "Hank", "email": "hank@example.com"},
+    {"name": "Isla", "email": "isla@example.com"}
+  ],
+  "test_process_opening_request_empty_name": [
+    {"name": "", "email": "amy@example.com", "phone": "1234509876"},
+    {"name": "", "email": "johnny@example.com", "phone": "2345098765"},
+    {"name": "", "email": "zara@example.com", "phone": "3450987654"}
+  ],
+  "test_process_opening_request_empty_email": [
+    {"name": "John", "email": "", "phone": "4567098765"},
+    {"name": "Paul", "email": "", "phone": "5670987654"},
+    {"name": "Rita", "email": "", "phone": "6780987654"}
+  ],
+  "test_process_opening_request_empty_phone": [
+    {"name": "Nina", "email": "nina@example.com", "phone": ""},
+    {"name": "Omar", "email": "omar@example.com", "phone": ""},
+    {"name": "Quinn", "email": "quinn@example.com", "phone": ""}
+  ],
+  "test_process_opening_request_backend_exception": [
+    {"name": "Steve", "email": "steve@example.com", "phone": "5678901234"},
+    {"name": "Tina", "email": "tina@example.com", "phone": "6789012345"},
+    {"name": "Uma", "email": "uma@example.com", "phone": "7890123456"}
+  ]
+}
+```
