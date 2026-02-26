@@ -1,6 +1,6 @@
 import React from "react";
-import BankingSelfServicePortalDesign from "./components/BankingSelfServicePortalDesign";
+import ProductsToolbarPage from "./components/ProductsToolbarPage";
 
 export default function App() {
-  return <BankingSelfServicePortalDesign />;
+  return <ProductsToolbarPage />;
 }

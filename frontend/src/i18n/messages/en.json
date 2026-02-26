@@ -1,17 +1,8 @@
 {
-  "bankingSelfServicePortalDesign.defaultUsernameOrEmail": "john.doe@email.com",
-  "brandHeader.subtitle": "Your banking, simplified",
-  "brandHeader.title": "SecureBank Portal",
-  "checkboxWithLabel.rememberMe": "Remember me",
-  "securityNote.text": "Secured with 256-bit encryption",
-  "signInCard.continue": "Continue",
-  "signInCard.continuing": "Continuing...",
-  "signInCard.description": "Enter your credentials to access your account",
-  "signInCard.forgotPassword": "Forgot password?",
-  "signInCard.passwordLabel": "Password",
-  "signInCard.passwordPlaceholder": "••••••••",
-  "signInCard.rememberMe": "Remember me",
-  "signInCard.title": "Sign In",
-  "signInCard.usernameOrEmailLabel": "Username or Email",
-  "signInCard.usernameOrEmailPlaceholder": "john.doe@email.com"
+  "resultsText.of": "of",
+  "resultsText.productsSuffix": "products",
+  "resultsText.showingPrefix": "Showing",
+  "sortControl.label": "Sort:",
+  "viewToggle.gridAria": "Grid view",
+  "viewToggle.listAria": "List view"
 }
