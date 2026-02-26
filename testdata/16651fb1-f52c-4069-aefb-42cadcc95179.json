@@ -1,0 +1,64 @@
+```json
+{
+  "test_save_service_modification_request_success": [
+    {
+      "service_name": "EmailService",
+      "modification_details": "Enable auto-reply",
+      "user_id": 98765
+    },
+    {
+      "service_name": "DBService",
+      "modification_details": "Increase storage limit",
+      "user_id": 54321
+    },
+    {
+      "service_name": "NotificationService",
+      "modification_details": "Add push notification",
+      "user_id": 11111
+    },
+    {
+      "service_name": "PaymentGateway",
+      "modification_details": "Fix transaction timeout issues",
+      "user_id": 22222
+    }
+  ],
+  
+  "test_save_service_modification_request_empty_data": [
+    {}
+  ],
+
+  "test_save_service_modification_request_partial_data": [
+    {
+      "service_name": "LoggingService"
+    },
+    {
+      "modification_details": "Enable verbose logging"
+    },
+    {
+      "user_id": 55555
+    }
+  ],
+
+  "test_save_service_modification_request_missing_user_id": [
+    {
+      "service_name": "FileService",
+      "modification_details": "Add encryption"
+    },
+    {
+      "service_name": "CacheService",
+      "modification_details": "Increase cache size"
+    }
+  ],
+
+  "test_save_service_modification_request_invalid_data_type": [
+    "Invalid data type",
+    ["Invalid array data type"],
+    12345,
+    true
+  ],
+
+  "test_save_service_modification_request_null_handling": [
+    null
+  ]
+}
+```
