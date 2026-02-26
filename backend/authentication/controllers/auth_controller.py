@@ -1,4 +1,4 @@
-# Epic Title: Login and Authentication
+# Epic Title: User Authentication and MFA
 
 from fastapi import APIRouter, HTTPException, status
 from backend.authentication.services.auth_service import AuthService
